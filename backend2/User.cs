@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Linq;
-using System.Text;
 
-namespace Server
+namespace backend2
 {
     public enum sex
     {
@@ -18,7 +12,7 @@ namespace Server
     {
 
         [Index]
-        public int PassportID { get; set; }
+        public int PassportId { get; set; }
 
         public int Serial { get; set; }
 
@@ -39,7 +33,7 @@ namespace Server
 
         [Index]
 //        [Index(false, true, 0)]
-        public int UserID { get; set; }
+        public int UserId { get; set; }
         public sex Sex { get; set; }
         public int Age { get; set; }//ushort?
 
@@ -56,6 +50,8 @@ namespace Server
 //        [MaxLength(8), MinLength(4)]
         public string Password { get; set; }
         public Passport Passport { get; set; }
+
+        public bool IsAuthenticated { get; set; }
 
 //        public User(sex sex, ushort age, string login, string name, string surename, string password, Passport passport)
 //        {
