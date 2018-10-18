@@ -1,5 +1,4 @@
-Client/bin/
-Server/obj/Debug/Server.csproj.FileListAbsolute.txt
 .vs/
-Client/obj/
-Server/bin/Debug/Server.vshost.exe.config
+.git/
+bin/
+obj/
