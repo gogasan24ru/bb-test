@@ -39,22 +39,27 @@ namespace Server
 
         public List<User> ListUsers()
         {
-            throw new NotImplementedException();
+            Program.Log("ListUsers method called.");
+            return new List<User>();
+            ///throw new NotImplementedException();
         }
 
         public bool Login(string login, string password)
         {
-            throw new NotImplementedException();
+            Program.Log("Login method called.");
+            return false;
         }
 
         public bool Logout()
         {
-            throw new NotImplementedException();
+            Program.Log("Logout method called.");
+            return false;
         }
 
         public bool Register(User data)
         {
-            throw new NotImplementedException();
+            Program.Log("Register method called.");
+            return false;
         }
     }
 }

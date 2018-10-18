@@ -99,6 +99,7 @@ namespace backend2
 
                 if (args[0] == "--create-with-demo")
                 {
+                    CreateDatabase();
                     DemoInit();
                 }
 
@@ -126,7 +127,6 @@ namespace backend2
                 while (true)
                 {
                     HandleEvents();
-                    //print logs/events/hz
                 }
 
 
