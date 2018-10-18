@@ -52,6 +52,7 @@ namespace backend2
         public Passport Passport { get; set; }
 
         public bool IsAuthenticated { get; set; }
+        public string SessionKey { get; set; }
 
 //        public User(sex sex, ushort age, string login, string name, string surename, string password, Passport passport)
 //        {

@@ -21,13 +21,13 @@ namespace Server
     interface IUsersManagementService
     {
         [OperationContract]
-        List<User> ListUsers();
+        List<User> ListUsers(string SessionKey);
 
         [OperationContract]
-        bool Login(string login, string password);
+        string Login(string login, string password);
 
         [OperationContract]
-        bool Logout();
+        bool Logout(string SessionKey);
 
 
         [OperationContract]

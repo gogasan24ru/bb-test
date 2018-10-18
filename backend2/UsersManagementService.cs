@@ -37,20 +37,20 @@ namespace Server
             return _sessionName;
         }
 
-        public List<User> ListUsers()
+        public List<User> ListUsers(string SessionKey)
         {
             Program.Log("ListUsers method called.");
             return new List<User>();
             ///throw new NotImplementedException();
         }
 
-        public bool Login(string login, string password)
+        public string Login(string login, string password)
         {
             Program.Log("Login method called.");
-            return false;
+            return "im session key";
         }
 
-        public bool Logout()
+        public bool Logout(string SessionKey)
         {
             Program.Log("Logout method called.");
             return false;
