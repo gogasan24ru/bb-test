@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.ServiceModel;
 
 namespace backend2
 {
-
+    [DataContract]
     public class Returnable
     {
         private DateTime timestamp;

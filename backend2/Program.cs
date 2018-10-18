@@ -29,7 +29,8 @@ namespace backend2
             ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
             smb.HttpGetEnabled = true;
             //            smb.HttpGetBinding=new BasicHttpBinding();
-            ServiceHost host = new ServiceHost(smb, new Uri("http://localhost:8000/ServerService"));
+//            ServiceHost host = new ServiceHost(typeof(UsersManagementService), new Uri("http://localhost:8000/UsersManagementService"));
+            ServiceHost host = new ServiceHost(smb, new Uri("http://localhost:8000/svc"));
             host.Open();
 //            Console.WriteLine("The service is ready.");
 //            Console.WriteLine("Press <ENTER> to terminate service.");
@@ -119,7 +120,49 @@ namespace backend2
                     CreateDatabase();
                     host = RunService();
                     if(host!=null)Log("service start, "+host.BaseAddresses[0]);
+                    
                 }
+
+                if (args[0] == "--metadata-service")
+                {
+                    try
+                    {
+                        ServiceHost svcHost = new ServiceHost(typeof(UsersManagementService), new Uri("http://localhost:8000/metadata"));
+                        host = svcHost;
+                        ServiceMetadataBehavior smb = svcHost.Description.Behaviors.Find<ServiceMetadataBehavior>();
+                        if (smb == null)
+                            smb = new ServiceMetadataBehavior();
+                        smb.HttpGetEnabled = true;
+                        smb.MetadataExporter.PolicyVersion = PolicyVersion.Policy15;
+                        host.Description.Behaviors.Add(smb);
+                        host.AddServiceEndpoint(
+                            ServiceMetadataBehavior.MexContractName,
+                            MetadataExchangeBindings.CreateMexHttpBinding(),
+                            "mex"
+                        );
+                        host.AddServiceEndpoint(typeof(IUsersManagementService), new WSHttpBinding(), "");
+                        host.Open();
+                        if (host != null) Log("Metadata service start, " + host.BaseAddresses[0]);
+                        // The service can now be accessed.
+                        HandleEvents();
+                        Console.WriteLine("The service is ready.");
+                        Console.WriteLine("Press <ENTER> to terminate service.");
+                        Console.WriteLine();
+                        Console.ReadLine();
+
+                        // Close the ServiceHostBase to shutdown the service.
+                        host.Close();
+                        return;
+                        
+                    }
+                    catch (CommunicationException commProblem)
+                    {
+                        Console.WriteLine("There was a communication problem. " + commProblem.Message);
+                        Console.Read();
+                    }
+                    
+                }
+
             }
 
             if(host!=null)//Service started. wait until shutdown with ^c maybe.
