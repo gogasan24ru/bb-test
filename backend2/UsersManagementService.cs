@@ -13,7 +13,11 @@ namespace backend2
         //    smthing
         //}
         private string _sessionName;
-
+        public bool Test(string input)
+        {
+            //Console.WriteLine("Test: {0}", input);
+            return true;
+        }
 
 
         public UsersManagementService()

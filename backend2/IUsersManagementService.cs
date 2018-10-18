@@ -42,6 +42,10 @@ namespace backend2
     [ServiceContract]
     interface IUsersManagementService
     {
+
+        [OperationContract]
+        bool Test(string input);
+
         [OperationContract]
         Returnable ListUsers(string sessionKey, byte[] hash);
 
