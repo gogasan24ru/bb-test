@@ -1,6 +1,4 @@
-﻿using Server;
-
-namespace backend2
+﻿namespace backend2
 {
     using System;
     using System.Data.Entity;

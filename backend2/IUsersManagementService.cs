@@ -1,12 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Security.Cryptography;
 using System.ServiceModel;
-using System.Text;
-using backend2;
 
-namespace Server
+namespace backend2
 {
+
+    public class Returnable
+    {
+        private DateTime timestamp;
+        private byte[] CheckSum;
+        private Type DataTypeLocal;
+        private object Data;
+
+        public Returnable(Type DT, object D)
+        {
+            timestamp=DateTime.Now;
+            Data = D;
+            DataTypeLocal = DT;
+            CheckSum = MD5.Create(timestamp.ToString()+GlobalVar.ServerSecret).Hash;
+        }
+
+        private bool CheckSumOk => MD5.Create(timestamp.ToString() + GlobalVar.ServerSecret).Hash.Equals(CheckSum);
+
+        public DataTypeLocal ExtractData<DataTypeLocal>()//will it work??
+        {
+            return (DataTypeLocal)Data;
+        }
+    }
     /// <summary>
     /// Dummy global vars
     /// </summary>
@@ -15,23 +36,24 @@ namespace Server
         /// <summary>
         /// Used in data validating. Because no https :(
         /// </summary>
-        public const string ClientSecret = "";
+        public const string ClientSecret = "ImMegaClientSecret";
+        public const string ServerSecret = "ImMegaServerSecret";
     }
     [ServiceContract]
     interface IUsersManagementService
     {
         [OperationContract]
-        List<User> ListUsers(string SessionKey);
+        Returnable ListUsers(string sessionKey, byte[] hash);
 
         [OperationContract]
-        string Login(string login, string password);
+        Returnable Login(string login, string password, byte[] hash);
 
         [OperationContract]
-        bool Logout(string SessionKey);
+        Returnable Logout(string sessionKey, byte[] hash);
 
 
         [OperationContract]
-        bool Register(User data);
+        Returnable Register(User data, byte[] hash);
 
         //[OperationContract]
         //return MethodName(args?);

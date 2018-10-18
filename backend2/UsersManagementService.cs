@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.ServiceModel;
-using System.Text;
-using backend2;
 
-namespace Server
+namespace backend2
 {
     //    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)]
     //    111
@@ -37,29 +33,34 @@ namespace Server
             return _sessionName;
         }
 
-        public List<User> ListUsers(string SessionKey)
+        public Returnable ListUsers(string sessionKey, byte[] hash)
         {
             Program.Log("ListUsers method called.");
-            return new List<User>();
+            var ret=new List<User>();
+            return new Returnable(ret.GetType(),ret);
             ///throw new NotImplementedException();
         }
 
-        public string Login(string login, string password)
+        public Returnable Login(string login, string password, byte[] hash)
         {
             Program.Log("Login method called.");
-            return "im session key";
+            string ret = "im session key";
+            return new Returnable(ret.GetType(), ret);
         }
 
-        public bool Logout(string SessionKey)
+        public Returnable Logout(string sessionKey, byte[] hash)
         {
             Program.Log("Logout method called.");
-            return false;
+            bool ret = false;
+            return new Returnable(ret.GetType(), ret);
         }
 
-        public bool Register(User data)
+        public Returnable Register(User data, byte[] hash)
         {
             Program.Log("Register method called.");
-            return false;
+            bool ret = false;
+            return new Returnable(ret.GetType(), ret);
+            
         }
     }
 }
