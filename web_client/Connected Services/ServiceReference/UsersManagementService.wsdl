@@ -292,9 +292,9 @@
   </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
-      <xsd:import schemaLocation="http://localhost:8000/metadata?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="http://localhost:8000/metadata?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost:8000/metadata?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/backend2" />
+      <xsd:import schemaLocation="http://localhost:8000/UsersManagementService?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:8000/UsersManagementService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:8000/UsersManagementService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/backend2" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IUsersManagementService_Test_InputMessage">
@@ -410,9 +410,9 @@
   </wsdl:binding>
   <wsdl:service name="UsersManagementService">
     <wsdl:port name="WSHttpBinding_IUsersManagementService" binding="tns:WSHttpBinding_IUsersManagementService">
-      <soap12:address location="http://localhost:8000/metadata" />
+      <soap12:address location="http://localhost:8000/UsersManagementService" />
       <wsa10:EndpointReference>
-        <wsa10:Address>http://localhost:8000/metadata</wsa10:Address>
+        <wsa10:Address>http://localhost:8000/UsersManagementService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
           <Upn>ns-lm\gogasan</Upn>
         </Identity>

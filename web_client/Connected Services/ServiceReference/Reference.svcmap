@@ -19,14 +19,14 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:8000/metadata" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:8000/UsersManagementService" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="metadata.xsd" MetadataType="Schema" ID="0c10b14d-3619-4735-80a6-59beff93f93e" SourceId="1" SourceUrl="http://localhost:8000/metadata?xsd=xsd1" />
-    <MetadataFile FileName="metadata.disco" MetadataType="Disco" ID="5b40b1a2-cd37-448e-bf0c-ccbfcdbe1445" SourceId="1" SourceUrl="http://localhost:8000/metadata?disco" />
-    <MetadataFile FileName="metadata1.xsd" MetadataType="Schema" ID="d9a9c9a5-5b2a-4ea5-91b2-500704f58aa9" SourceId="1" SourceUrl="http://localhost:8000/metadata?xsd=xsd2" />
-    <MetadataFile FileName="UsersManagementService.wsdl" MetadataType="Wsdl" ID="8198ac7d-5397-4cfc-aedb-8b1bdc200e29" SourceId="1" SourceUrl="http://localhost:8000/metadata?wsdl" />
-    <MetadataFile FileName="metadata2.xsd" MetadataType="Schema" ID="06fb5e61-2e2d-4a6d-98ef-0e237c531ebc" SourceId="1" SourceUrl="http://localhost:8000/metadata?xsd=xsd0" />
+    <MetadataFile FileName="UsersManagementService.xsd" MetadataType="Schema" ID="33a8d23b-adb5-445c-aca7-a05fb6a2ef55" SourceId="1" SourceUrl="http://localhost:8000/UsersManagementService?xsd=xsd2" />
+    <MetadataFile FileName="UsersManagementService.disco" MetadataType="Disco" ID="1c2a269f-b6a0-4e48-b1d3-3a498eed6e01" SourceId="1" SourceUrl="http://localhost:8000/UsersManagementService?disco" />
+    <MetadataFile FileName="UsersManagementService.wsdl" MetadataType="Wsdl" ID="810d8e4e-d2fd-49a1-98d2-fde11cbf5745" SourceId="1" SourceUrl="http://localhost:8000/UsersManagementService?wsdl" />
+    <MetadataFile FileName="UsersManagementService1.xsd" MetadataType="Schema" ID="726f06c7-a925-4c05-8b5d-daa5c8aa883e" SourceId="1" SourceUrl="http://localhost:8000/UsersManagementService?xsd=xsd0" />
+    <MetadataFile FileName="UsersManagementService2.xsd" MetadataType="Schema" ID="947f173f-5f84-42a9-bde0-18f2048bb60a" SourceId="1" SourceUrl="http://localhost:8000/UsersManagementService?xsd=xsd1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

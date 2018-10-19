@@ -22,8 +22,12 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Домашняя страница", "Index", "Home")</li>
-                    <li>@Html.ActionLink("О программе", "About", "Home")</li>
-                    <li>@Html.ActionLink("Контакт", "Contact", "Home")</li>
+                    @* <li>@Html.ActionLink("О программе", "About", "Home")</li> *@
+                    @* <li>@Html.ActionLink("Контакт", "Contact", "Home")</li> *@
+                    <li>@Html.ActionLink("Register implementation", "Register", "Home")</li>
+                    <li>@Html.ActionLink("Login implementation", "Login", "Home")</li>
+                    <li>@Html.ActionLink("Logout implementation", "Logout", "Home")</li>
+                    <li>@Html.ActionLink("List users implementation", "List", "Home")</li>
                 </ul>
             </div>
         </div>
@@ -32,7 +36,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year – приложение ASP.NET</p>
+            <p>&copy; @DateTime.Now.Year – приложение ASP.NET, <a href="https://github.com/gogasan24ru/bb-test">GitHub repository</a></p>
         </footer>
     </div>
 

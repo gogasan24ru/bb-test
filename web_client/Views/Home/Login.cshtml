@@ -1,0 +1,21 @@
+﻿@model web_client.Models.LoginModel
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+@using (Html.BeginForm("LoginAction", "Home"))
+{
+    @Html.LabelFor(model => model.Username);
+    @Html.EditorFor(model => model.Username);
+    @Html.ValidationMessageFor(model => model.Username);
+    <br />
+    @Html.LabelFor(model => model.Password);
+    @Html.EditorFor(model => model.Password);
+    @Html.ValidationMessageFor(model => model.Password);
+    <br/>
+//    where is button? 
+    <input type="submit" value="Login"/>
+
+}

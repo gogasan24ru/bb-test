@@ -20,24 +20,41 @@ namespace backend2
             events.Add(new Event(msg));
         }
 
+        private static void UMR_listener(object sender,UnknownMessageReceivedEventArgs a) {
+            Log("Unknown message received by Service host: "+"\n"+
+                a.Message+" ("+a+")");
+        }
+
+        private static void Fault_listener(object sender,EventArgs a)
+        {
+            throw new Exception("Fault_listener called");
+        }
+
         /// <summary>
         /// Start service
         /// </summary>
         /// <returns>Service entity. You should stop it, when shutting down app</returns>
         private static ServiceHost  RunService()
         {
-            ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
-            smb.HttpGetEnabled = true;
-            //            smb.HttpGetBinding=new BasicHttpBinding();
-//            ServiceHost host = new ServiceHost(typeof(UsersManagementService), new Uri("http://localhost:8000/UsersManagementService"));
-            ServiceHost host = new ServiceHost(smb, new Uri("http://localhost:8000/svc"));
-            host.Open();
-//            Console.WriteLine("The service is ready.");
-//            Console.WriteLine("Press <ENTER> to terminate service.");
-//            Console.WriteLine();
-//            Console.ReadLine();
-//            host.Close();
-            return host;
+
+
+            return RunCustomHost();
+//            ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
+//            smb.HttpGetEnabled = true;
+//            //            smb.HttpGetBinding=new BasicHttpBinding();
+////            ServiceHost host = new ServiceHost(typeof(UsersManagementService), new Uri("http://localhost:8000/UsersManagementService"));
+//            ServiceHost host = new ServiceHost(smb, new Uri("http://localhost:8000/UsersManagementService"));
+//            host.Open();
+//            host.UnknownMessageReceived += UMR_listener;
+//            host.Faulted += Fault_listener;
+//
+//            host.AddServiceEndpoint(typeof(IUsersManagementService), new WSHttpBinding(), "");
+//            //            Console.WriteLine("The service is ready.");
+//            //            Console.WriteLine("Press <ENTER> to terminate service.");
+//            //            Console.WriteLine();
+//            //            Console.ReadLine();
+//            //            host.Close();
+//            return host;
         }
 
         /// <summary>
@@ -123,45 +140,10 @@ namespace backend2
                     
                 }
 
-                if (args[0] == "--metadata-service")
-                {
-                    try
-                    {
-                        ServiceHost svcHost = new ServiceHost(typeof(UsersManagementService), new Uri("http://localhost:8000/metadata"));
-                        host = svcHost;
-                        ServiceMetadataBehavior smb = svcHost.Description.Behaviors.Find<ServiceMetadataBehavior>();
-                        if (smb == null)
-                            smb = new ServiceMetadataBehavior();
-                        smb.HttpGetEnabled = true;
-                        smb.MetadataExporter.PolicyVersion = PolicyVersion.Policy15;
-                        host.Description.Behaviors.Add(smb);
-                        host.AddServiceEndpoint(
-                            ServiceMetadataBehavior.MexContractName,
-                            MetadataExchangeBindings.CreateMexHttpBinding(),
-                            "mex"
-                        );
-                        host.AddServiceEndpoint(typeof(IUsersManagementService), new WSHttpBinding(), "");
-                        host.Open();
-                        if (host != null) Log("Metadata service start, " + host.BaseAddresses[0]);
-                        // The service can now be accessed.
-                        HandleEvents();
-                        Console.WriteLine("The service is ready.");
-                        Console.WriteLine("Press <ENTER> to terminate service.");
-                        Console.WriteLine();
-                        Console.ReadLine();
-
-                        // Close the ServiceHostBase to shutdown the service.
-                        host.Close();
-                        return;
-                        
-                    }
-                    catch (CommunicationException commProblem)
-                    {
-                        Console.WriteLine("There was a communication problem. " + commProblem.Message);
-                        Console.Read();
-                    }
-                    
-                }
+//                if (args[0] == "--metadata-service")
+//                {
+//                    if (RunCustomHost()) return;
+//                }
 
             }
 
@@ -175,6 +157,38 @@ namespace backend2
 
 
             HandleEvents();
+        }
+
+        private static ServiceHost RunCustomHost()
+        {
+            ServiceHost host;
+            try
+            {
+                ServiceHost svcHost = new ServiceHost(typeof(UsersManagementService),
+                    new Uri("http://localhost:8000/UsersManagementService"));
+//                host = svcHost;
+                ServiceMetadataBehavior smb = svcHost.Description.Behaviors.Find<ServiceMetadataBehavior>();
+                if (smb == null)
+                    smb = new ServiceMetadataBehavior();
+                smb.HttpGetEnabled = true;
+                smb.MetadataExporter.PolicyVersion = PolicyVersion.Policy15;
+                svcHost.Description.Behaviors.Add(smb);
+                svcHost.AddServiceEndpoint(
+                    ServiceMetadataBehavior.MexContractName,
+                    MetadataExchangeBindings.CreateMexHttpBinding(),
+                    "mex"
+                );
+                svcHost.AddServiceEndpoint(typeof(IUsersManagementService), new WSHttpBinding(), "");
+                svcHost.Open();
+//                if (svcHost != null) Log("Service start, " + svcHost.BaseAddresses[0]);
+                return svcHost;
+            }
+            catch (Exception e)
+            {
+                HandleEvents();
+                throw e;
+            }
+
         }
 
         private static void CreateDatabase()

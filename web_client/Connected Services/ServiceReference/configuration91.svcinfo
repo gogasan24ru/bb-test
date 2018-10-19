@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="hxcMZ9FjHgWo8nrkhdXdhRp5RYM=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="3/wDNanI5NQzFtA/FJ8FByEj2RI=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="wsHttpBinding" name="WSHttpBinding_IUsersManagementService1">
       <properties>
@@ -127,10 +127,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="WSHttpBinding_IUsersManagementService1" contract="ServiceReference.IUsersManagementService" bindingType="wsHttpBinding" address="http://localhost:8000/metadata" bindingConfiguration="WSHttpBinding_IUsersManagementService1">
+    <endpoint name="WSHttpBinding_IUsersManagementService1" contract="ServiceReference.IUsersManagementService" bindingType="wsHttpBinding" address="http://localhost:8000/UsersManagementService" bindingConfiguration="WSHttpBinding_IUsersManagementService1">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://localhost:8000/metadata</serializedValue>
+          <serializedValue>http://localhost:8000/UsersManagementService</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
