@@ -46,7 +46,8 @@ namespace web_client.Models
 
             client.Logout(sessionKey,
                 MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(sessionKey + GlobalVar.ClientSecret)));
-//            var t= Convert.ChangeType(data.ExtractData(), data.GetType());
+            //            var t= Convert.ChangeType(data.ExtractData(), data.GetType());
+
             return false;
         }
     }

@@ -7,47 +7,11 @@ using System.Text;
 
 namespace backend2
 {
-    [DataContract]
-    public class Returnable
-    {
-
-        [DataMember]
-        private DateTime timestamp;
-        [DataMember]
-        private byte[] CheckSum;
-        [DataMember]
-        private Type DataTypeLocal;
-        [DataMember]
-        private object Data;
-        
-        public Returnable(Type DT, object D)
-        {
-            timestamp=DateTime.Now;
-            Data = D;
-            DataTypeLocal = DT;
-            CheckSum = MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(timestamp.ToString() + GlobalVar.ServerSecret));
-        }
-
-//        private bool CheckSumOk => MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(timestamp.ToString() + GlobalVar.ServerSecret)).Equals(CheckSum);
-        
-//        public object ExtractData()//will it work??
-//        {
-//            //            var k=typeof(Convert.ChangeType(null,DataTypeLocal));
-//            return Data;//Convert.ChangeType(Data, DataTypeLocal);
-////            return Data;
-//        }
-    }
-    /// <summary>
-    /// Dummy global vars
-    /// </summary>
-    static class GlobalVar
-    {
-        /// <summary>
-        /// Used in data validating. Because no https :(
-        /// </summary>
-        public const string ClientSecret = "ImMegaClientSecret";
-        public const string ServerSecret = "ImMegaServerSecret";
-    }
+    [ServiceKnownType(typeof(Returnable))]
+    [ServiceKnownType(typeof(object))]
+    [ServiceKnownType(typeof(DateTime))]
+    [ServiceKnownType(typeof(Type))]
+    [ServiceKnownType(typeof(byte[]))]
     [ServiceContract]
     interface IUsersManagementService
     {
@@ -56,17 +20,17 @@ namespace backend2
         bool Test(string input);
 
         [OperationContract]
-        dynamic ListUsers(string sessionKey, byte[] hash);
+        string ListUsers(string sessionKey, byte[] hash);
 
         [OperationContract]
-        dynamic Login(string login, string password, byte[] hash);
+        string Login(string login, string password, byte[] hash);
 
         [OperationContract]
-        object Logout(string sessionKey, byte[] hash);
+        string Logout(string sessionKey, byte[] hash);
 
 
         [OperationContract]
-        dynamic Register(User data, byte[] hash);
+        string Register(User data, byte[] hash);
 
         //[OperationContract]
         //return MethodName(args?);
