@@ -8,13 +8,9 @@ using System.Text;
 namespace backend2
 {
     [DataContract]
-    [KnownType(typeof(DateTime))]
-    [KnownType(typeof(byte[]))]
-    [KnownType(typeof(Type))]
-    [KnownType(typeof(bool))]
-    [KnownType(typeof(object))]
     public class Returnable
     {
+
         [DataMember]
         private DateTime timestamp;
         [DataMember]
