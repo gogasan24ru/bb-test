@@ -11,6 +11,9 @@ namespace web_client.Controllers
     {
         public ActionResult Index()
         {
+            return Redirect("/Home/Logout");
+            //increase logout debug speed  
+
             var result = false;
             string Details = "default, no errors";
             try

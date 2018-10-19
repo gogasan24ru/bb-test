@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.ServiceModel;
@@ -15,9 +16,9 @@ namespace backend2
     {
 
         [DataMember]
-        public DateTime timestamp { get; set; }
+        public UInt32 timestamp { get; set; }
         [DataMember]
-        public byte[] CheckSum { get; set; }
+        public string CheckSum { get; set; }
         [DataMember]
         public Type DataTypeLocal { get; set; }
         [DataMember]
@@ -26,9 +27,9 @@ namespace backend2
         public Dictionary<string, object> ToDictionary()//dummy walkaround
         {
             var ret = new Dictionary<string,object>();
-            ret.Add("timestamp", timestamp);
+            ret.Add("timestamp", (UInt32)timestamp);
             ret.Add("CheckSum", CheckSum);
-            ret.Add("DataTypeLocal", DataTypeLocal);
+            ret.Add("DataTypeLocal", DataTypeLocal.Name);
             ret.Add("Data", Data);
             return ret;
         }
@@ -38,12 +39,58 @@ namespace backend2
             return JsonConvert.SerializeObject(this.ToDictionary());
         }
 
+        public Returnable(string json)
+        {
+            Dictionary<string, string> dict = new Dictionary<string, string>(
+                JsonConvert.DeserializeObject<Dictionary<string, string>>(json)
+                );
+            //dict[""];
+            timestamp = UInt32.Parse(dict["timestamp"]);
+//            DataTypeLocal = Type.GetType(dict["DataTypeLocal"]);
+            //TODO!!!!!!!!! looks bad, should think about...
+            switch (dict["DataTypeLocal"].ToLower())
+            {
+                case "boolean":
+                {
+                    DataTypeLocal = typeof(bool);
+                    bool temp = dict["Data"].ToLower().Equals("true");
+                    Data = temp;
+                    break;
+                }
+                case "string":
+                {
+                    DataTypeLocal = typeof(String);
+                    Data = dict["Data"];
+                    break;
+                }
+                //prepare for List<User>!!! TODO
+            }
+
+            if (Data == null ||
+                DataTypeLocal == null)
+                throw new Exception("Failed to parse JSON: "+json);
+
+
+            CheckSum = dict["CheckSum"];
+
+
+
+            int a = 1;
+        }
+
         public Returnable(Type DT, object D)
         {
-            timestamp = DateTime.Now;
+            timestamp = (UInt32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
             Data = D;
             DataTypeLocal = DT;
-            CheckSum = MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(timestamp.ToString() + GlobalVar.ServerSecret));
+            CheckSum = Convert.ToBase64String(MD5.Create().ComputeHash(
+                Encoding.UTF8.GetBytes(
+                    timestamp +
+                    GlobalVar.ServerSecret
+                )
+            ));//TODO confirm correct behavior
+
+            
         }
 
         //        private bool CheckSumOk => MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(timestamp.ToString() + GlobalVar.ServerSecret)).Equals(CheckSum);
@@ -58,8 +105,8 @@ namespace backend2
 
 
 
-    [ServiceKnownType(typeof(Returnable))]
-    [KnownType(typeof(Returnable))]
+    [ServiceKnownType(typeof(Returnable))]//useless
+    [KnownType(typeof(Returnable))]//useless
     [ServiceBehavior]
     public class UsersManagementService : IUsersManagementService
     {
@@ -118,7 +165,9 @@ namespace backend2
                     sessionKey + GlobalVar.ClientSecret
                 ));
             ret = localHash.SequenceEqual(hash);
-            return new Returnable(ret.GetType(), ret).ToJson();
+            var returnable =new  Returnable(ret.GetType(), ret);
+            Program.Log("CS: "+returnable.CheckSum);//TODO comment or remove
+            return returnable.ToJson();
             //return new Returnable(ret.GetType(), ret);
             //KnownType not worked. 
         }

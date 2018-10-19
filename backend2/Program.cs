@@ -223,7 +223,7 @@ namespace backend2
             catch (Exception e)
             {
                 HandleEvents();
-                throw e;
+                throw;
             }
 
         }

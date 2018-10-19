@@ -44,9 +44,11 @@ namespace web_client.Models
             //            backend2.Returnable data = (backend2.Returnable)client.Logout(sessionKey,
             //                MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(sessionKey + GlobalVar.ClientSecret)));
 
-            client.Logout(sessionKey,
+            var Answer=  client.Logout(sessionKey,
                 MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(sessionKey + GlobalVar.ClientSecret)));
             //            var t= Convert.ChangeType(data.ExtractData(), data.GetType());
+
+            Returnable data = new Returnable(Answer);
 
             return false;
         }

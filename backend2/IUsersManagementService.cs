@@ -7,11 +7,11 @@ using System.Text;
 
 namespace backend2
 {
-    [ServiceKnownType(typeof(Returnable))]
-    [ServiceKnownType(typeof(object))]
-    [ServiceKnownType(typeof(DateTime))]
-    [ServiceKnownType(typeof(Type))]
-    [ServiceKnownType(typeof(byte[]))]
+    [ServiceKnownType(typeof(Returnable))]//useless
+    [ServiceKnownType(typeof(object))]//useless
+    [ServiceKnownType(typeof(DateTime))]//useless
+    [ServiceKnownType(typeof(Type))]//useless
+    [ServiceKnownType(typeof(byte[]))]//useless
     [ServiceContract]
     interface IUsersManagementService
     {
