@@ -245,6 +245,12 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\ServiceReference\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\backend2\backend2.csproj">
+      <Project>{c4c9e783-2853-4a97-a6ca-ea97f2a525b5}</Project>
+      <Name>backend2</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

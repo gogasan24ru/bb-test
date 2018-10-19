@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Cryptography;
 using System.ServiceModel;
 using System.Web;
 using web_client.ServiceReference;
+using backend2;
 
 namespace web_client.Models
 {
@@ -36,9 +38,11 @@ namespace web_client.Models
                 return client.Test("nvm");
         }
 
-        public void Logout(string sessionKey)
+        public bool Logout(string sessionKey)
         {
-            throw new NotImplementedException();
+            backend2.Returnable data = client.Logout(sessionKey,
+                MD5.Create(sessionKey + GlobalVar.ClientSecret));
+            return data.ExtractData();
         }
     }
 }

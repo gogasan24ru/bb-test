@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.ServiceModel;
 
 namespace backend2
@@ -55,7 +56,9 @@ namespace backend2
         public Returnable Logout(string sessionKey, byte[] hash)
         {
             Program.Log("Logout method called.");
+
             bool ret = false;
+            ret= MD5.Create(sessionKey+GlobalVar.ClientSecret).Hash.Equals(hash);
             return new Returnable(ret.GetType(), ret);
         }
 
