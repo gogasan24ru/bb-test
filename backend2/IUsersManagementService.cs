@@ -32,19 +32,14 @@ namespace backend2
             CheckSum = MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(timestamp.ToString() + GlobalVar.ServerSecret));
         }
 
-        public Type GetType()
-        {
-            return DataTypeLocal;
-        }
-
-        private bool CheckSumOk => MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(timestamp.ToString() + GlobalVar.ServerSecret)).Equals(CheckSum);
+//        private bool CheckSumOk => MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(timestamp.ToString() + GlobalVar.ServerSecret)).Equals(CheckSum);
         
-        public dynamic ExtractData()//will it work??
-        {
-            //            var k=typeof(Convert.ChangeType(null,DataTypeLocal));
-            return Convert.ChangeType(Data, DataTypeLocal);
-//            return Data;
-        }
+//        public object ExtractData()//will it work??
+//        {
+//            //            var k=typeof(Convert.ChangeType(null,DataTypeLocal));
+//            return Data;//Convert.ChangeType(Data, DataTypeLocal);
+////            return Data;
+//        }
     }
     /// <summary>
     /// Dummy global vars
@@ -71,7 +66,7 @@ namespace backend2
         dynamic Login(string login, string password, byte[] hash);
 
         [OperationContract]
-        dynamic Logout(string sessionKey, byte[] hash);
+        object Logout(string sessionKey, byte[] hash);
 
 
         [OperationContract]

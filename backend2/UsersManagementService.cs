@@ -55,7 +55,7 @@ namespace backend2
             return new Returnable(ret.GetType(), ret);
         }
 
-        public dynamic Logout(string sessionKey, byte[] hash)
+        public object Logout(string sessionKey, byte[] hash)
         {
             Program.Log("Logout method called.");
 
