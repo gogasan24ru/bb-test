@@ -16,7 +16,7 @@ namespace backend2
         public bool Test(string input)
         {
             //Console.WriteLine("Test: {0}", input);
-            return true;
+            return true;//I understand it should return smth more informational but not required in this test application
         }
 
 

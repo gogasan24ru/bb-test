@@ -158,7 +158,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ICUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UncStuff.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\ServiceReference\metadata.disco" />
@@ -222,7 +224,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
