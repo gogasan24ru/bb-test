@@ -183,9 +183,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Connected Services\ServiceReference\web_client.ServiceReference.Returnable.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
     <None Include="Connected Services\ServiceReference\UsersManagementService.wsdl" />
     <None Include="Connected Services\ServiceReference\UsersManagementService.xsd">
       <SubType>Designer</SubType>

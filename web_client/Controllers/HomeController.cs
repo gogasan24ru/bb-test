@@ -43,8 +43,9 @@ namespace web_client.Controllers
         public ActionResult Logout()
         {
             var model = new ICUser();
-            model.Logout(Session["SessionKey"] as string);
-            
+//            model.Logout(Session["SessionKey"] as string);
+            model.Logout("SOMESTRING");
+
             return Redirect("/");
         }
 

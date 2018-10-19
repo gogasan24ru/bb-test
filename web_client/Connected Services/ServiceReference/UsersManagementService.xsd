@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/backend2" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/backend2" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:complexType name="Returnable">
-    <xs:sequence />
-  </xs:complexType>
-  <xs:element name="Returnable" nillable="true" type="tns:Returnable" />
   <xs:complexType name="User">
     <xs:sequence>
       <xs:element minOccurs="0" name="Age" type="xs:int" />

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Cryptography;
 using System.ServiceModel;
+using System.Text;
 using System.Web;
 using web_client.ServiceReference;
 using backend2;
@@ -40,9 +41,13 @@ namespace web_client.Models
 
         public bool Logout(string sessionKey)
         {
-            backend2.Returnable data = client.Logout(sessionKey,
-                MD5.Create(sessionKey + GlobalVar.ClientSecret));
-            return data.ExtractData();
+            //            backend2.Returnable data = (backend2.Returnable)client.Logout(sessionKey,
+            //                MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(sessionKey + GlobalVar.ClientSecret)));
+
+            client.Logout(sessionKey,
+                MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(sessionKey + GlobalVar.ClientSecret)));
+//            var t= Convert.ChangeType(data.ExtractData(), data.GetType());
+            return false;
         }
     }
 }

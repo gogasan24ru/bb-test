@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.ServiceModel;
@@ -17,7 +18,8 @@ namespace backend2
 
         public static void Log(string msg)
         {
-            events.Add(new Event(msg));
+            lock (events)
+                events.Add(new Event(msg));
         }
 
         private static void UMR_listener(object sender,UnknownMessageReceivedEventArgs a) {
@@ -106,6 +108,30 @@ namespace backend2
             ServiceHost host = null;
             events = new List<Event>();
             events.Add(new Event("Application start."));
+
+
+//            System.Diagnostics.XmlWriterTraceListener tracer= new XmlWriterTraceListener();
+
+
+            //TODO: change parsing model to smth like below:
+//            var arguments = new List<string>(args);
+//            try
+//            {
+//                var ComplicatedArgument = "--complicated-argument";
+//                if (arguments.Contains(ComplicatedArgument))
+//                {
+//                    var a = arguments[arguments.IndexOf(ComplicatedArgument) + 1];
+//                    int b; 
+//                    int.TryParse(arguments[arguments.IndexOf(ComplicatedArgument) + 2],out b);
+//                    ComplicatedMethod(a, b);
+//                }
+//            }
+//            catch (Exception e)
+//            {
+//                Console.WriteLine(e);
+//                throw new ArgumentException(e.Message);
+//            }
+
 
             if (args.Length >= 1)//TODO: replace with advanced args parsing!
             {
@@ -201,6 +227,7 @@ namespace backend2
 
         private static void HandleEvents()
         {
+            lock(events)
             foreach (var a in events.FindAll(a=>!a.Displayed))
                 Console.WriteLine(a.ToString());
         }

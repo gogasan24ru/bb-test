@@ -3,30 +3,47 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.ServiceModel;
+using System.Text;
 
 namespace backend2
 {
     [DataContract]
+    [KnownType(typeof(DateTime))]
+    [KnownType(typeof(byte[]))]
+    [KnownType(typeof(Type))]
+    [KnownType(typeof(bool))]
+    [KnownType(typeof(object))]
     public class Returnable
     {
+        [DataMember]
         private DateTime timestamp;
+        [DataMember]
         private byte[] CheckSum;
+        [DataMember]
         private Type DataTypeLocal;
+        [DataMember]
         private object Data;
-
+        
         public Returnable(Type DT, object D)
         {
             timestamp=DateTime.Now;
             Data = D;
             DataTypeLocal = DT;
-            CheckSum = MD5.Create(timestamp.ToString()+GlobalVar.ServerSecret).Hash;
+            CheckSum = MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(timestamp.ToString() + GlobalVar.ServerSecret));
         }
 
-        private bool CheckSumOk => MD5.Create(timestamp.ToString() + GlobalVar.ServerSecret).Hash.Equals(CheckSum);
-
-        public DataTypeLocal ExtractData<DataTypeLocal>()//will it work??
+        public Type GetType()
         {
-            return (DataTypeLocal)Data;
+            return DataTypeLocal;
+        }
+
+        private bool CheckSumOk => MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(timestamp.ToString() + GlobalVar.ServerSecret)).Equals(CheckSum);
+        
+        public dynamic ExtractData()//will it work??
+        {
+            //            var k=typeof(Convert.ChangeType(null,DataTypeLocal));
+            return Convert.ChangeType(Data, DataTypeLocal);
+//            return Data;
         }
     }
     /// <summary>
@@ -48,17 +65,17 @@ namespace backend2
         bool Test(string input);
 
         [OperationContract]
-        Returnable ListUsers(string sessionKey, byte[] hash);
+        dynamic ListUsers(string sessionKey, byte[] hash);
 
         [OperationContract]
-        Returnable Login(string login, string password, byte[] hash);
+        dynamic Login(string login, string password, byte[] hash);
 
         [OperationContract]
-        Returnable Logout(string sessionKey, byte[] hash);
+        dynamic Logout(string sessionKey, byte[] hash);
 
 
         [OperationContract]
-        Returnable Register(User data, byte[] hash);
+        dynamic Register(User data, byte[] hash);
 
         //[OperationContract]
         //return MethodName(args?);

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.ServiceModel;
+using System.Text;
 
 namespace backend2
 {
@@ -38,7 +40,7 @@ namespace backend2
             return _sessionName;
         }
 
-        public Returnable ListUsers(string sessionKey, byte[] hash)
+        public dynamic ListUsers(string sessionKey, byte[] hash)
         {
             Program.Log("ListUsers method called.");
             var ret=new List<User>();
@@ -46,23 +48,28 @@ namespace backend2
             ///throw new NotImplementedException();
         }
 
-        public Returnable Login(string login, string password, byte[] hash)
+        public dynamic Login(string login, string password, byte[] hash)
         {
             Program.Log("Login method called.");
             string ret = "im session key";
             return new Returnable(ret.GetType(), ret);
         }
 
-        public Returnable Logout(string sessionKey, byte[] hash)
+        public dynamic Logout(string sessionKey, byte[] hash)
         {
             Program.Log("Logout method called.");
 
             bool ret = false;
-            ret= MD5.Create(sessionKey+GlobalVar.ClientSecret).Hash.Equals(hash);
+            var localHash = MD5.Create().ComputeHash(
+                Encoding.UTF8.GetBytes(
+                    sessionKey + GlobalVar.ClientSecret
+                ));
+            ret = localHash.SequenceEqual(hash);
+            
             return new Returnable(ret.GetType(), ret);
         }
 
-        public Returnable Register(User data, byte[] hash)
+        public dynamic Register(User data, byte[] hash)
         {
             Program.Log("Register method called.");
             bool ret = false;

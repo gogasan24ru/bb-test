@@ -9,315 +9,7 @@
 //------------------------------------------------------------------------------
 
 namespace web_client.ServiceReference {
-    using System.Runtime.Serialization;
-    using System;
     
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Returnable", Namespace="http://schemas.datacontract.org/2004/07/backend2")]
-    [System.SerializableAttribute()]
-    public partial class Returnable : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="User", Namespace="http://schemas.datacontract.org/2004/07/backend2")]
-    [System.SerializableAttribute()]
-    public partial class User : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int AgeField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool IsAuthenticatedField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string LoginField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NameField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private web_client.ServiceReference.Passport PassportField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string PasswordField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string SessionKeyField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private web_client.ServiceReference.sex SexField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string SurnameField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int UserIdField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Age {
-            get {
-                return this.AgeField;
-            }
-            set {
-                if ((this.AgeField.Equals(value) != true)) {
-                    this.AgeField = value;
-                    this.RaisePropertyChanged("Age");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool IsAuthenticated {
-            get {
-                return this.IsAuthenticatedField;
-            }
-            set {
-                if ((this.IsAuthenticatedField.Equals(value) != true)) {
-                    this.IsAuthenticatedField = value;
-                    this.RaisePropertyChanged("IsAuthenticated");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Login {
-            get {
-                return this.LoginField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.LoginField, value) != true)) {
-                    this.LoginField = value;
-                    this.RaisePropertyChanged("Login");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name {
-            get {
-                return this.NameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NameField, value) != true)) {
-                    this.NameField = value;
-                    this.RaisePropertyChanged("Name");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public web_client.ServiceReference.Passport Passport {
-            get {
-                return this.PassportField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.PassportField, value) != true)) {
-                    this.PassportField = value;
-                    this.RaisePropertyChanged("Passport");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Password {
-            get {
-                return this.PasswordField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.PasswordField, value) != true)) {
-                    this.PasswordField = value;
-                    this.RaisePropertyChanged("Password");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string SessionKey {
-            get {
-                return this.SessionKeyField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.SessionKeyField, value) != true)) {
-                    this.SessionKeyField = value;
-                    this.RaisePropertyChanged("SessionKey");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public web_client.ServiceReference.sex Sex {
-            get {
-                return this.SexField;
-            }
-            set {
-                if ((this.SexField.Equals(value) != true)) {
-                    this.SexField = value;
-                    this.RaisePropertyChanged("Sex");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Surname {
-            get {
-                return this.SurnameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.SurnameField, value) != true)) {
-                    this.SurnameField = value;
-                    this.RaisePropertyChanged("Surname");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int UserId {
-            get {
-                return this.UserIdField;
-            }
-            set {
-                if ((this.UserIdField.Equals(value) != true)) {
-                    this.UserIdField = value;
-                    this.RaisePropertyChanged("UserId");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Passport", Namespace="http://schemas.datacontract.org/2004/07/backend2")]
-    [System.SerializableAttribute()]
-    public partial class Passport : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int NumberField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int PassportIdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int SerialField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Number {
-            get {
-                return this.NumberField;
-            }
-            set {
-                if ((this.NumberField.Equals(value) != true)) {
-                    this.NumberField = value;
-                    this.RaisePropertyChanged("Number");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int PassportId {
-            get {
-                return this.PassportIdField;
-            }
-            set {
-                if ((this.PassportIdField.Equals(value) != true)) {
-                    this.PassportIdField = value;
-                    this.RaisePropertyChanged("PassportId");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Serial {
-            get {
-                return this.SerialField;
-            }
-            set {
-                if ((this.SerialField.Equals(value) != true)) {
-                    this.SerialField = value;
-                    this.RaisePropertyChanged("Serial");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="sex", Namespace="http://schemas.datacontract.org/2004/07/backend2")]
-    public enum sex : int {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Male = 0,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Female = 1,
-    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference.IUsersManagementService")]
@@ -330,28 +22,40 @@ namespace web_client.ServiceReference {
         System.Threading.Tasks.Task<bool> TestAsync(string input);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/ListUsers", ReplyAction="http://tempuri.org/IUsersManagementService/ListUsersResponse")]
-        web_client.ServiceReference.Returnable ListUsers(string sessionKey, byte[] hash);
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(backend2.User))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(backend2.Passport))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(backend2.sex))]
+        object ListUsers(string sessionKey, byte[] hash);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/ListUsers", ReplyAction="http://tempuri.org/IUsersManagementService/ListUsersResponse")]
-        System.Threading.Tasks.Task<web_client.ServiceReference.Returnable> ListUsersAsync(string sessionKey, byte[] hash);
+        System.Threading.Tasks.Task<object> ListUsersAsync(string sessionKey, byte[] hash);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/Login", ReplyAction="http://tempuri.org/IUsersManagementService/LoginResponse")]
-        web_client.ServiceReference.Returnable Login([System.ServiceModel.MessageParameterAttribute(Name="login")] string login1, string password, byte[] hash);
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(backend2.User))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(backend2.Passport))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(backend2.sex))]
+        object Login([System.ServiceModel.MessageParameterAttribute(Name="login")] string login1, string password, byte[] hash);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/Login", ReplyAction="http://tempuri.org/IUsersManagementService/LoginResponse")]
-        System.Threading.Tasks.Task<web_client.ServiceReference.Returnable> LoginAsync(string login, string password, byte[] hash);
+        System.Threading.Tasks.Task<object> LoginAsync(string login, string password, byte[] hash);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/Logout", ReplyAction="http://tempuri.org/IUsersManagementService/LogoutResponse")]
-        web_client.ServiceReference.Returnable Logout(string sessionKey, byte[] hash);
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(backend2.User))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(backend2.Passport))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(backend2.sex))]
+        object Logout(string sessionKey, byte[] hash);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/Logout", ReplyAction="http://tempuri.org/IUsersManagementService/LogoutResponse")]
-        System.Threading.Tasks.Task<web_client.ServiceReference.Returnable> LogoutAsync(string sessionKey, byte[] hash);
+        System.Threading.Tasks.Task<object> LogoutAsync(string sessionKey, byte[] hash);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/Register", ReplyAction="http://tempuri.org/IUsersManagementService/RegisterResponse")]
-        web_client.ServiceReference.Returnable Register(web_client.ServiceReference.User data, byte[] hash);
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(backend2.User))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(backend2.Passport))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(backend2.sex))]
+        object Register(backend2.User data, byte[] hash);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/Register", ReplyAction="http://tempuri.org/IUsersManagementService/RegisterResponse")]
-        System.Threading.Tasks.Task<web_client.ServiceReference.Returnable> RegisterAsync(web_client.ServiceReference.User data, byte[] hash);
+        System.Threading.Tasks.Task<object> RegisterAsync(backend2.User data, byte[] hash);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -389,35 +93,35 @@ namespace web_client.ServiceReference {
             return base.Channel.TestAsync(input);
         }
         
-        public web_client.ServiceReference.Returnable ListUsers(string sessionKey, byte[] hash) {
+        public object ListUsers(string sessionKey, byte[] hash) {
             return base.Channel.ListUsers(sessionKey, hash);
         }
         
-        public System.Threading.Tasks.Task<web_client.ServiceReference.Returnable> ListUsersAsync(string sessionKey, byte[] hash) {
+        public System.Threading.Tasks.Task<object> ListUsersAsync(string sessionKey, byte[] hash) {
             return base.Channel.ListUsersAsync(sessionKey, hash);
         }
         
-        public web_client.ServiceReference.Returnable Login(string login1, string password, byte[] hash) {
+        public object Login(string login1, string password, byte[] hash) {
             return base.Channel.Login(login1, password, hash);
         }
         
-        public System.Threading.Tasks.Task<web_client.ServiceReference.Returnable> LoginAsync(string login, string password, byte[] hash) {
+        public System.Threading.Tasks.Task<object> LoginAsync(string login, string password, byte[] hash) {
             return base.Channel.LoginAsync(login, password, hash);
         }
         
-        public web_client.ServiceReference.Returnable Logout(string sessionKey, byte[] hash) {
+        public object Logout(string sessionKey, byte[] hash) {
             return base.Channel.Logout(sessionKey, hash);
         }
         
-        public System.Threading.Tasks.Task<web_client.ServiceReference.Returnable> LogoutAsync(string sessionKey, byte[] hash) {
+        public System.Threading.Tasks.Task<object> LogoutAsync(string sessionKey, byte[] hash) {
             return base.Channel.LogoutAsync(sessionKey, hash);
         }
         
-        public web_client.ServiceReference.Returnable Register(web_client.ServiceReference.User data, byte[] hash) {
+        public object Register(backend2.User data, byte[] hash) {
             return base.Channel.Register(data, hash);
         }
         
-        public System.Threading.Tasks.Task<web_client.ServiceReference.Returnable> RegisterAsync(web_client.ServiceReference.User data, byte[] hash) {
+        public System.Threading.Tasks.Task<object> RegisterAsync(backend2.User data, byte[] hash) {
             return base.Channel.RegisterAsync(data, hash);
         }
     }
