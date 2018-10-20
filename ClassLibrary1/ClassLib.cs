@@ -23,6 +23,8 @@ namespace ClassLibrary1
     [Serializable()]
     public class Returnable
     {
+//        [IgnoreDataMember] private string key = "not set";
+        //maybe add inheritance for duplex usage???
 
         [DataMember]
         public UInt32 timestamp { get; set; }
@@ -48,8 +50,8 @@ namespace ClassLibrary1
         {
         }
 
-        public Returnable(string sd) : this(false, sd) { }
-        public Returnable(List<User> ld) : this(false, null, ld) { }
+        public Returnable(string sd) : this(true, sd) { }
+        public Returnable(List<User> ld) : this(true, null, ld) { }
 
 
         public Returnable(bool booleanData = true, string stringData = null, List<User> listData = null)
@@ -73,10 +75,10 @@ namespace ClassLibrary1
 
         #endregion
 
-        [OperationContract]
-        public bool CheckSumOk()
-        {
-            return Convert.ToBase64String(MD5.Create().ComputeHash(
+//        [OperationContract]
+        public bool CheckSumOk =>
+        
+             Convert.ToBase64String(MD5.Create().ComputeHash(
                 Encoding.UTF8.GetBytes(
                     timestamp +
                     (Boolean ? "true" : "false") +
@@ -85,24 +87,7 @@ namespace ClassLibrary1
                     GlobalVar.ServerSecret
                 )
             )).Equals(CheckSum);
-        }
 
-        public dynamic ExtractData(out Type t)//TODO remove
-        {
-            if (StringData != null)
-            {
-                t = StringData.GetType();
-                return StringData;
-            }
-
-            if (UserList != null)
-            {
-                t = UserList.GetType();
-                return UserList;
-            }
-            t = Boolean.GetType();
-            return Boolean;
-        }
     }
 
     public enum sex

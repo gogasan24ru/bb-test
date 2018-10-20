@@ -51,10 +51,11 @@ namespace web_client.Models
         {
             var cts = CurrentTimestamp();
             var Answer = client.ListUsers(cts, sessionKey, ComputeHash(cts + sessionKey + filterSet??"null" + page),page, filterSet);
-//            if (!Answer.CheckSumOk)
-//            {
-//                throw new Exception("Received data have checksum mismatch.");
-//            }
+            if (!Answer.CheckSumOk)
+            {
+                throw new Exception("Received data have checksum mismatch.");
+            }
+
                
             if(Answer.Boolean)
                 return new List<User>(Answer.UserList);

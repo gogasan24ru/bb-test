@@ -50,8 +50,8 @@ namespace backend2
         }
 
         public Returnable ListUsers(UInt32 timestamp, string sessionKey, byte[] hash, int page=0, string filterSet=null)
-        //TODO "LIMIT A B"
         {
+
             Program.Log("ListUsers method called.",Program.LogLevel.Information);
             var hashOk = CheckHash(timestamp + sessionKey + filterSet??"null" + page, hash);
             if (!hashOk)

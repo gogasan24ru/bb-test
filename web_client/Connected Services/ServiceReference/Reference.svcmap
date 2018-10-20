@@ -22,10 +22,9 @@
     <MetadataSource Address="http://localhost:8000/UsersManagementService" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="UsersManagementService31.xsd" MetadataType="Schema" ID="7b874222-bc51-4bee-8f85-fc5eb6f758d5" SourceId="1" SourceUrl="http://localhost:8000/UsersManagementService?xsd=xsd4" />
     <MetadataFile FileName="UsersManagementService3.xsd" MetadataType="Schema" ID="3a8cc463-68b6-4e09-b1d1-ad619c7b499f" SourceId="1" SourceUrl="http://localhost:8000/UsersManagementService?xsd=xsd3" />
+    <MetadataFile FileName="UsersManagementService31.xsd" MetadataType="Schema" ID="7b874222-bc51-4bee-8f85-fc5eb6f758d5" SourceId="1" SourceUrl="http://localhost:8000/UsersManagementService?xsd=xsd4" />
     <MetadataFile FileName="UsersManagementService.disco" MetadataType="Disco" ID="1c2a269f-b6a0-4e48-b1d3-3a498eed6e01" SourceId="1" SourceUrl="http://localhost:8000/UsersManagementService?disco" />
-    <MetadataFile FileName="UsersManagementService4.xsd" MetadataType="Schema" ID="01356225-a59d-449d-984f-16cc461fbdd5" SourceId="1" SourceUrl="http://localhost:8000/UsersManagementService?xsd=xsd5" />
     <MetadataFile FileName="UsersManagementService.xsd" MetadataType="Schema" ID="33a8d23b-adb5-445c-aca7-a05fb6a2ef55" SourceId="1" SourceUrl="http://localhost:8000/UsersManagementService?xsd=xsd2" />
     <MetadataFile FileName="UsersManagementService.wsdl" MetadataType="Wsdl" ID="810d8e4e-d2fd-49a1-98d2-fde11cbf5745" SourceId="1" SourceUrl="http://localhost:8000/UsersManagementService?wsdl" />
     <MetadataFile FileName="UsersManagementService1.xsd" MetadataType="Schema" ID="726f06c7-a925-4c05-8b5d-daa5c8aa883e" SourceId="1" SourceUrl="http://localhost:8000/UsersManagementService?xsd=xsd0" />

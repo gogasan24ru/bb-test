@@ -1,15 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/backend2" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/backend2" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:8000/UsersManagementService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/ClassLibrary1" />
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/ClassLibrary1" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/ClassLibrary1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:complexType name="Returnable">
     <xs:sequence>
       <xs:element minOccurs="0" name="Boolean" type="xs:boolean" />
       <xs:element minOccurs="0" name="CheckSum" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Contains" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="StringData" nillable="true" type="xs:string" />
-      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/ClassLibrary1" minOccurs="0" name="UserList" nillable="true" type="q1:ArrayOfUser" />
+      <xs:element minOccurs="0" name="UserList" nillable="true" type="tns:ArrayOfUser" />
       <xs:element minOccurs="0" name="timestamp" type="xs:unsignedInt" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Returnable" nillable="true" type="tns:Returnable" />
+  <xs:complexType name="ArrayOfUser">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="User" nillable="true" type="tns:User" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUser" nillable="true" type="tns:ArrayOfUser" />
+  <xs:complexType name="User">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Age" type="xs:int" />
+      <xs:element minOccurs="0" name="IsAuthenticated" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Login" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Passport" nillable="true" type="tns:Passport" />
+      <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SessionKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Sex" type="tns:sex" />
+      <xs:element minOccurs="0" name="Surname" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="User" nillable="true" type="tns:User" />
+  <xs:complexType name="Passport">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Number" type="xs:int" />
+      <xs:element minOccurs="0" name="PassportId" type="xs:int" />
+      <xs:element minOccurs="0" name="Serial" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Passport" nillable="true" type="tns:Passport" />
+  <xs:simpleType name="sex">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Male" />
+      <xs:enumeration value="Female" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="sex" nillable="true" type="tns:sex" />
 </xs:schema>
