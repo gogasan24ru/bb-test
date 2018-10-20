@@ -20,7 +20,7 @@ namespace backend2
         bool Test(string input);
 
         [OperationContract]
-        Returnable ListUsers(string sessionKey, byte[] hash);
+        Returnable ListUsers(string sessionKey, byte[] hash, string filterSet);
 
         [OperationContract]
         Returnable Login(string login, string password, byte[] hash);
