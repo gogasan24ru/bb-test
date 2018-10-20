@@ -15,14 +15,6 @@ namespace backend2
     /// <summary>
     /// Dummy global vars
     /// </summary>
-    static class GlobalVar
-    {
-        /// <summary>
-        /// Used in data validating. Because no https :(
-        /// </summary>
-        public const string ClientSecret = "ImMegaClientSecret";
-        public const string ServerSecret = "ImMegaServerSecret";
-    }
 
     class Program
     {

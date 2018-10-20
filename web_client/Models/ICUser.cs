@@ -55,7 +55,7 @@ namespace web_client.Models
 //            {
 //                throw new Exception("Received data have checksum mismatch.");
 //            }
-
+               
             if(Answer.Boolean)
                 return new List<User>(Answer.UserList);
             else
