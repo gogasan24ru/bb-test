@@ -14,7 +14,7 @@ namespace backend2
     [ServiceKnownType(typeof(Type))]//useless
     [ServiceKnownType(typeof(byte[]))]//useless
     [ServiceContract]
-    interface IUsersManagementService
+    public interface IUsersManagementService
     {
 
         [OperationContract]
