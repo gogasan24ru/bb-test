@@ -48,7 +48,7 @@ namespace web_client.Models
                 MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(sessionKey + GlobalVar.ClientSecret)));
             //            var t= Convert.ChangeType(data.ExtractData(), data.GetType());
 
-            Returnable data = new Returnable(Answer);
+            //Returnable data = new Returnable(Answer);
 
             return false;
         }
