@@ -26,6 +26,11 @@ namespace backend2
         //    smthing
         //}
         private string _sessionName;
+        public Logger logger { get; set; } 
+
+        public void setLogger(Logger l)
+        { logger = l;  }
+
         public bool Test(string input)
         {
             return true;//I understand it should return smth more informational but not required in this test application
@@ -52,11 +57,11 @@ namespace backend2
         public Returnable ListUsers(UInt32 timestamp, string sessionKey, byte[] hash, int page=0, string filterSet=null)
         {
 
-            Program.Log("ListUsers method called.",Program.LogLevel.Information);
+            logger.Log("ListUsers method called.", LogLevel.Information);
             var hashOk = CheckHash(timestamp + sessionKey + filterSet??"null" + page, hash);
             if (!hashOk)
             {
-                Program.Log("Request checksum failed.", Program.LogLevel.Error);
+                logger.Log("Request checksum failed.", LogLevel.Error);
                 return new Returnable(false, "Request checksum failed.",new List<User>());
             }
             var ret=new List<User>();
@@ -71,14 +76,14 @@ namespace backend2
         public Returnable Login(UInt32 timestamp, string login, string password, byte[] hash)
         {
             var hashOk= CheckHash(timestamp + login + password, hash);
-            Program.Log("Login method called.");
+            logger.Log("Login method called.");
             string ret = "im session key";
             return new Returnable(ret);
         }
 
         public Returnable Logout(UInt32 timestamp, string sessionKey, byte[] hash)
         {
-            Program.Log("Logout method called.");
+            logger.Log("Logout method called.");
 
             bool ret = false;
             var localHash = MD5.Create().ComputeHash(
@@ -94,7 +99,7 @@ namespace backend2
         {
             var hashok = CheckHash(timestamp.ToString(), hash);
             //            throw new NotImplementedException();
-            Program.Log("Register method called.");
+            logger.Log("Register method called.");
             bool ret = false;
             return new Returnable(ret);
         }

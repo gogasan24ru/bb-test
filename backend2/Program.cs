@@ -18,29 +18,13 @@ namespace backend2
 
     class Program
     {
-        public static List<Event> events;
-        public static LogLevel LogLvl;
+        private static Logger logger;
 
 
-        public enum LogLevel
-        {
-            NotClassified = 0,
-            Information = 1,
-            Warning = 2,
-            Error = 3,
-            Critical = 4
-        }
 
-        public static void Log(string msg, LogLevel lvl = 0)
-        {
-            //TODO add cli arg for LogLevel adjust. Ie:
-            // if (lvl>LogLvl) {...
-            lock (events)
-                events.Add(new Event(msg));
-        }
 
         private static void UMR_listener(object sender,UnknownMessageReceivedEventArgs a) {
-            Log("Unknown message received by Service host: "+"\n"+
+            logger.Log("Unknown message received by Service host: "+"\n"+
                 a.Message+" ("+a+")");
         }
 
@@ -123,31 +107,33 @@ namespace backend2
 //            Console.WriteLine(args[0]);
 //            Console.ReadKey();
             ServiceHost host = null;
-            events = new List<Event>();
-            events.Add(new Event("Application start."));
+            //            events = new List<Event>();
+            //            events.Add(new Event("Application start."));
+            logger= new Logger();
+            logger.Log("Application stated.");
 
 
 //            System.Diagnostics.XmlWriterTraceListener tracer= new XmlWriterTraceListener();
 
 
             //TODO: change parsing model to smth like below:
-//            var arguments = new List<string>(args);
-//            try
-//            {
-//                var ComplicatedArgument = "--complicated-argument";
-//                if (arguments.Contains(ComplicatedArgument))
-//                {
-//                    var a = arguments[arguments.IndexOf(ComplicatedArgument) + 1];
-//                    int b; 
-//                    int.TryParse(arguments[arguments.IndexOf(ComplicatedArgument) + 2],out b);
-//                    ComplicatedMethod(a, b);
-//                }
-//            }
-//            catch (Exception e)
-//            {
-//                Console.WriteLine(e);
-//                throw new ArgumentException(e.Message);
-//            }
+            //            var arguments = new List<string>(args);
+            //            try
+            //            {
+            //                var ComplicatedArgument = "--complicated-argument";
+            //                if (arguments.Contains(ComplicatedArgument))
+            //                {
+            //                    var a = arguments[arguments.IndexOf(ComplicatedArgument) + 1];
+            //                    int b; 
+            //                    int.TryParse(arguments[arguments.IndexOf(ComplicatedArgument) + 2],out b);
+            //                    ComplicatedMethod(a, b);
+            //                }
+            //            }
+            //            catch (Exception e)
+            //            {
+            //                Console.WriteLine(e);
+            //                throw new ArgumentException(e.Message);
+            //            }
 
 
             if (args.Length >= 1)//TODO: replace with advanced args parsing!
@@ -165,7 +151,7 @@ namespace backend2
 
                 if (args[0] == "--drop-database")
                 {
-                    Log((new Model1()).Database.Delete()
+                    logger.Log((new Model1()).Database.Delete()
                         ? "Successfully done"
                         : "Done with error (no database?)");
                 }
@@ -179,7 +165,7 @@ namespace backend2
                 {
                     CreateDatabase();
                     host = RunService();
-                    if(host!=null)Log("service start, "+host.BaseAddresses[0]);
+                    if(host!=null) logger.Log("service start, "+host.BaseAddresses[0]);
                     
                 }
 
@@ -193,13 +179,13 @@ namespace backend2
             if(host!=null)//Service started. wait until shutdown with ^c maybe.
                 while (true)
                 {
-                    HandleEvents();
+                    logger.HandleEvents();
                 }
 
 
 
 
-            HandleEvents();
+            logger.HandleEvents();
         }
 
         private static ServiceHost RunCustomHost()
@@ -209,7 +195,7 @@ namespace backend2
             {
                 ServiceHost svcHost = new ServiceHost(typeof(UsersManagementService),
                     new Uri("http://localhost:8000/UsersManagementService"));
-//                host = svcHost;
+                //svcHost.SingletonInstance.
                 ServiceMetadataBehavior smb = svcHost.Description.Behaviors.Find<ServiceMetadataBehavior>();
                 if (smb == null)
                     smb = new ServiceMetadataBehavior();
@@ -221,6 +207,7 @@ namespace backend2
                     MetadataExchangeBindings.CreateMexHttpBinding(),
                     "mex"
                 );
+                
                 svcHost.AddServiceEndpoint(typeof(IUsersManagementService), new WSHttpBinding(), "");
                 svcHost.Open();
 //                if (svcHost != null) Log("Service start, " + svcHost.BaseAddresses[0]);
@@ -228,7 +215,7 @@ namespace backend2
             }
             catch (Exception e)
             {
-                HandleEvents();
+                logger.HandleEvents();
                 throw;
             }
 
@@ -237,42 +224,13 @@ namespace backend2
         private static void CreateDatabase()
         {
             DateTime start = DateTime.Now;
-            Log((new Model1()).Database.CreateIfNotExists()
+            logger.Log((new Model1()).Database.CreateIfNotExists()
                 ? "New database created in (millis) " + (DateTime.Now - start).TotalMilliseconds.ToString()
                 : "Database already exist");
         }
 
-        private static void HandleEvents()
-        {
-            lock(events)
-            foreach (var a in events.FindAll(a=>!a.Displayed))
-                Console.WriteLine(a.ToString());
-        }
+
     }
 
-    public class Event
-    {
-        private bool displayed;
-        private string message;
-        private DateTime timestamp;
-
-        public Event(string msg)
-        {
-            timestamp = DateTime.Now;
-            displayed = false;
-            message = msg;
-        }
-
-        public bool Displayed => displayed;
-
-        /// <summary>
-        /// custom override with self modifying
-        /// </summary>
-        /// <returns>DateTime : Message</returns>
-        public override string ToString()
-        {
-            displayed = true;
-            return timestamp + " : " + message; //NOTTODO: +severity or smthing. Ignoring: possible over-engineering 
-        }
-    }
+    
 }

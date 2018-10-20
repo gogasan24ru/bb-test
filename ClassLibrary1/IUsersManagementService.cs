@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
-using System.Security.Cryptography;
 using System.ServiceModel;
-using System.Text;
-using ClassLibrary1;
 
-namespace backend2
+namespace ClassLibrary1
 {
     [ServiceKnownType(typeof(Returnable))]//useless
     [ServiceKnownType(typeof(object))]//useless

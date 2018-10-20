@@ -10,6 +10,63 @@ using Newtonsoft.Json;
 
 namespace ClassLibrary1
 {
+    public enum LogLevel
+    {
+        NotClassified = 0,
+        Information = 1,
+        Warning = 2,
+        Error = 3,
+        Critical = 4
+    }
+    public class Event
+    {
+        private bool displayed;
+        private string message;
+        private DateTime timestamp;
+
+        public Event(string msg)
+        {
+            timestamp = DateTime.Now;
+            displayed = false;
+            message = msg;
+        }
+
+        public bool Displayed => displayed;
+
+        /// <summary>
+        /// custom override with self modifying
+        /// </summary>
+        /// <returns>DateTime : Message</returns>
+        public override string ToString()
+        {
+            displayed = true;
+            return timestamp + " : " + message; //NOTTODO: +severity or smthing. Ignoring: possible over-engineering 
+        }
+    }
+
+    public  class Logger
+    {
+        private LogLevel MinLogLevel = 0;
+        private List<Event> events = new List<Event>();
+
+        public Logger(LogLevel mll=0)
+        {
+            MinLogLevel = mll;
+        }
+        public void Log(string msg, LogLevel lvl = 0)
+        {
+            if (lvl>=MinLogLevel)
+                lock (events)
+                    events.Add(new Event(msg));
+        }
+        public void HandleEvents()
+        {
+            lock (events)
+                foreach (var a in events.FindAll(a => !a.Displayed))
+                    Console.WriteLine(a.ToString());
+        }
+    }
+
     public static class GlobalVar
     {
         /// <summary>
