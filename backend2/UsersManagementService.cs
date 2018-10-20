@@ -129,7 +129,7 @@ namespace backend2
             var ret=new List<User>();
             using (var ctx = new Model1())
             {
-                ret = new List<User>(ctx.Users);
+                ret = new List<User>(ctx.Users.Include("Passport"));
             }
 
             return new Returnable(ret);

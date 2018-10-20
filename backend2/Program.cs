@@ -95,7 +95,7 @@ namespace backend2
                             Age= rnd.Next(18,100),
                             Login = "user"+i,
                             Name=Names[rnd.Next(0,Names.Count)],
-                            Passport = new Passport() { Number = rnd.Next(0, 9999), Serial = rnd.Next(0, 999999) },
+                            Passport = new Passport() { Number = rnd.Next(0, 999999), Serial = rnd.Next(0, 9999) },
                             Password = Passwords[rnd.Next(0, Passwords.Count)],
                             Sex = sex.Male,//equal 0
                             Surname = Surnames[rnd.Next(0, Surnames.Count)]

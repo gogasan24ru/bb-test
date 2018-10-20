@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ClassLibrary1
@@ -17,6 +18,9 @@ namespace ClassLibrary1
         public int Serial { get; set; }
 
         public int Number { get; set; }
+
+        public string sSerial => $"{Serial:0000}";
+        public string sNumber => $"{Number:000000}";
 
         public Passport(int serial, int number)
         {

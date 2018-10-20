@@ -1,17 +1,35 @@
 ﻿
-@model List<backend2.User>
+@model List<ClassLibrary1.User>
 @{
     ViewBag.Title = "ListUsers";
 }
 
 <h2>ListUsers</h2>
-@foreach (var element in Model)
-{
-    <p>@Html.DisplayFor(m => element)</p>
-}
+
 <table>
     <thead>
-        <tr><td></td></tr>
+        <tr >
+            <td>Login</td>
+            <td>Name</td>
+            <td>Surname</td>
+            <td>Passport</td>
+        </tr>
     </thead>
-    <tbody></tbody>
+    <tbody>
+    @foreach (var element in Model)
+    {
+        <p></p>
+        <tr>
+            <td>@Html.DisplayFor(m => element.Login)</td>
+            <td>@Html.DisplayFor(m => element.Name)</td>
+            <td>@Html.DisplayFor(m => element.Surname)</td>
+            <td>
+                @Html.DisplayFor(m => element.Passport.sSerial)
+                :
+                @Html.DisplayFor(m => element.Passport.sNumber)
+            </td>
+        </tr>
+    }
+
+    </tbody>
 </table>
