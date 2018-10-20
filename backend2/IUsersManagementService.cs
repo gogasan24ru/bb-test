@@ -21,7 +21,7 @@ namespace backend2
         bool Test(string input);
 
         [OperationContract]
-        Returnable ListUsers(UInt32 timestamp, string sessionKey, byte[] hash, string filterSet);
+        Returnable ListUsers(UInt32 timestamp, string sessionKey, byte[] hash, int page, string filterSet);
 
         [OperationContract]
         Returnable Login(UInt32 timestamp, string login, string password, byte[] hash);

@@ -47,11 +47,11 @@ namespace web_client.Models
                 return client.Test("nvm");
         }
 
-        public List<User> ListUsers(string sessionKey, string filterSet=null)
+        public List<User> ListUsers(string sessionKey, int page = 0, string filterSet =null)
         {
             var cts = CurrentTimestamp();
-            var Answer = client.ListUsers(cts, sessionKey, ComputeHash(cts + sessionKey + filterSet??"null"), filterSet);
-
+            var Answer = client.ListUsers(cts, sessionKey, ComputeHash(cts + sessionKey + filterSet??"null" + page),page, filterSet);
+            
             return new List<User>(Answer.UserList);
         }
 

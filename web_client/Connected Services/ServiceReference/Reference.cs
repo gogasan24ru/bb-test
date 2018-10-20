@@ -149,10 +149,10 @@ namespace web_client.ServiceReference {
         System.Threading.Tasks.Task<bool> TestAsync(string input);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/ListUsers", ReplyAction="http://tempuri.org/IUsersManagementService/ListUsersResponse")]
-        web_client.ServiceReference.Returnable ListUsers(uint timestamp, string sessionKey, byte[] hash, string filterSet);
+        web_client.ServiceReference.Returnable ListUsers(uint timestamp, string sessionKey, byte[] hash, int page, string filterSet);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/ListUsers", ReplyAction="http://tempuri.org/IUsersManagementService/ListUsersResponse")]
-        System.Threading.Tasks.Task<web_client.ServiceReference.Returnable> ListUsersAsync(uint timestamp, string sessionKey, byte[] hash, string filterSet);
+        System.Threading.Tasks.Task<web_client.ServiceReference.Returnable> ListUsersAsync(uint timestamp, string sessionKey, byte[] hash, int page, string filterSet);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/Login", ReplyAction="http://tempuri.org/IUsersManagementService/LoginResponse")]
         web_client.ServiceReference.Returnable Login(uint timestamp, [System.ServiceModel.MessageParameterAttribute(Name="login")] string login1, string password, byte[] hash);
@@ -208,12 +208,12 @@ namespace web_client.ServiceReference {
             return base.Channel.TestAsync(input);
         }
         
-        public web_client.ServiceReference.Returnable ListUsers(uint timestamp, string sessionKey, byte[] hash, string filterSet) {
-            return base.Channel.ListUsers(timestamp, sessionKey, hash, filterSet);
+        public web_client.ServiceReference.Returnable ListUsers(uint timestamp, string sessionKey, byte[] hash, int page, string filterSet) {
+            return base.Channel.ListUsers(timestamp, sessionKey, hash, page, filterSet);
         }
         
-        public System.Threading.Tasks.Task<web_client.ServiceReference.Returnable> ListUsersAsync(uint timestamp, string sessionKey, byte[] hash, string filterSet) {
-            return base.Channel.ListUsersAsync(timestamp, sessionKey, hash, filterSet);
+        public System.Threading.Tasks.Task<web_client.ServiceReference.Returnable> ListUsersAsync(uint timestamp, string sessionKey, byte[] hash, int page, string filterSet) {
+            return base.Channel.ListUsersAsync(timestamp, sessionKey, hash, page, filterSet);
         }
         
         public web_client.ServiceReference.Returnable Login(uint timestamp, string login1, string password, byte[] hash) {

@@ -121,15 +121,15 @@ namespace backend2
             return _sessionName;
         }
 
-        public Returnable ListUsers(UInt32 timestamp, string sessionKey, byte[] hash, string filterSet=null)
+        public Returnable ListUsers(UInt32 timestamp, string sessionKey, byte[] hash, int page=0, string filterSet=null)
         //TODO "LIMIT A B"
         {
-            var hashOk = CheckHash(timestamp + sessionKey + filterSet??"null", hash);
+            var hashOk = CheckHash(timestamp + sessionKey + filterSet??"null" + page, hash);
             Program.Log("ListUsers method called.");
             var ret=new List<User>();
             using (var ctx = new Model1())
             {
-                ret = new List<User>(ctx.Users.Include("Passport"));
+                ret = new List<User>(ctx.Users.Include("Passport").OrderBy(a=> a.UserId) .Skip(10 * page).Take(10));
             }
 
             return new Returnable(ret);

@@ -1,14 +1,18 @@
-﻿
-@model List<ClassLibrary1.User>
+﻿@model List<ClassLibrary1.User>
 @{
-    ViewBag.Title = "ListUsers";
+    ViewBag.Title = "ListUsers page";// + ((int)ViewData["page"]+1);
 }
 
-<h2>ListUsers</h2>
-
+<h2>ListUsers</h2>[
+@Html.ActionLink("Prev.", "ListUsers", new { page = ((int)ViewData["page"] - 1) })
+]
+Page: @((int)ViewData["page"] + 1)
+[
+@Html.ActionLink("Next", "ListUsers", new { page = ((int)ViewData["page"] + 1) })
+]
 <table>
     <thead>
-        <tr >
+        <tr>
             <td>Login</td>
             <td>Name</td>
             <td>Surname</td>
@@ -16,20 +20,20 @@
         </tr>
     </thead>
     <tbody>
-    @foreach (var element in Model)
-    {
-        <p></p>
-        <tr>
-            <td>@Html.DisplayFor(m => element.Login)</td>
-            <td>@Html.DisplayFor(m => element.Name)</td>
-            <td>@Html.DisplayFor(m => element.Surname)</td>
-            <td>
-                @Html.DisplayFor(m => element.Passport.sSerial)
-                :
-                @Html.DisplayFor(m => element.Passport.sNumber)
-            </td>
-        </tr>
-    }
+        @foreach (var element in Model)
+        {
+            <p></p>
+            <tr>
+                <td>@Html.DisplayFor(m => element.Login)</td>
+                <td>@Html.DisplayFor(m => element.Name)</td>
+                <td>@Html.DisplayFor(m => element.Surname)</td>
+                <td>
+                    @Html.DisplayFor(m => element.Passport.sSerial)
+                    :
+                    @Html.DisplayFor(m => element.Passport.sNumber)
+                </td>
+            </tr>
+        }
 
     </tbody>
 </table>

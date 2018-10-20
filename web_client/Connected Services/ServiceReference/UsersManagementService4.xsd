@@ -22,6 +22,7 @@
         <xs:element minOccurs="0" name="timestamp" type="xs:unsignedInt" />
         <xs:element minOccurs="0" name="sessionKey" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="hash" nillable="true" type="xs:base64Binary" />
+        <xs:element minOccurs="0" name="page" type="xs:int" />
         <xs:element minOccurs="0" name="filterSet" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>

@@ -52,12 +52,15 @@ namespace web_client.Controllers
             return Redirect("/");
         }
 
-        public ActionResult ListUsers()
+        public ActionResult ListUsers(int page = 0)
         {
+            if (page < 0) page = 0;
             var model = new ICUser();
             //            model.Logout(Session["SessionKey"] as string);
-            var list = model.ListUsers("SOMESTRING");
-
+            var list = model.ListUsers("SOMESTRING",page);
+            while((list.Count == 0)&& (page >= 0)) list = model.ListUsers("SOMESTRING", --page);
+            //TODO max page count should be received from server 
+            ViewData["page"] = page;
             return View(list);
         }
 
