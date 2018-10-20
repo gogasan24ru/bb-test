@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.ServiceModel;
 using System.Text;
 using Newtonsoft.Json;
+using ClassLibrary1;
 
 namespace backend2
 {

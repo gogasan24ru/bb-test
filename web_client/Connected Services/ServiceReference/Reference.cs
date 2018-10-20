@@ -9,7 +9,134 @@
 //------------------------------------------------------------------------------
 
 namespace web_client.ServiceReference {
+    using System.Runtime.Serialization;
+    using System;
     
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Returnable", Namespace="http://schemas.datacontract.org/2004/07/backend2")]
+    [System.SerializableAttribute()]
+    public partial class Returnable : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool BooleanField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CheckSumField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ContainsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StringDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private ClassLibrary1.User[] UserListField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private uint timestampField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Boolean {
+            get {
+                return this.BooleanField;
+            }
+            set {
+                if ((this.BooleanField.Equals(value) != true)) {
+                    this.BooleanField = value;
+                    this.RaisePropertyChanged("Boolean");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CheckSum {
+            get {
+                return this.CheckSumField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CheckSumField, value) != true)) {
+                    this.CheckSumField = value;
+                    this.RaisePropertyChanged("CheckSum");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Contains {
+            get {
+                return this.ContainsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ContainsField, value) != true)) {
+                    this.ContainsField = value;
+                    this.RaisePropertyChanged("Contains");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string StringData {
+            get {
+                return this.StringDataField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StringDataField, value) != true)) {
+                    this.StringDataField = value;
+                    this.RaisePropertyChanged("StringData");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public ClassLibrary1.User[] UserList {
+            get {
+                return this.UserListField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UserListField, value) != true)) {
+                    this.UserListField = value;
+                    this.RaisePropertyChanged("UserList");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public uint timestamp {
+            get {
+                return this.timestampField;
+            }
+            set {
+                if ((this.timestampField.Equals(value) != true)) {
+                    this.timestampField = value;
+                    this.RaisePropertyChanged("timestamp");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference.IUsersManagementService")]
@@ -22,28 +149,28 @@ namespace web_client.ServiceReference {
         System.Threading.Tasks.Task<bool> TestAsync(string input);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/ListUsers", ReplyAction="http://tempuri.org/IUsersManagementService/ListUsersResponse")]
-        backend2.Returnable ListUsers(uint timestamp, string sessionKey, byte[] hash, string filterSet);
+        web_client.ServiceReference.Returnable ListUsers(uint timestamp, string sessionKey, byte[] hash, string filterSet);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/ListUsers", ReplyAction="http://tempuri.org/IUsersManagementService/ListUsersResponse")]
-        System.Threading.Tasks.Task<backend2.Returnable> ListUsersAsync(uint timestamp, string sessionKey, byte[] hash, string filterSet);
+        System.Threading.Tasks.Task<web_client.ServiceReference.Returnable> ListUsersAsync(uint timestamp, string sessionKey, byte[] hash, string filterSet);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/Login", ReplyAction="http://tempuri.org/IUsersManagementService/LoginResponse")]
-        backend2.Returnable Login(uint timestamp, [System.ServiceModel.MessageParameterAttribute(Name="login")] string login1, string password, byte[] hash);
+        web_client.ServiceReference.Returnable Login(uint timestamp, [System.ServiceModel.MessageParameterAttribute(Name="login")] string login1, string password, byte[] hash);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/Login", ReplyAction="http://tempuri.org/IUsersManagementService/LoginResponse")]
-        System.Threading.Tasks.Task<backend2.Returnable> LoginAsync(uint timestamp, string login, string password, byte[] hash);
+        System.Threading.Tasks.Task<web_client.ServiceReference.Returnable> LoginAsync(uint timestamp, string login, string password, byte[] hash);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/Logout", ReplyAction="http://tempuri.org/IUsersManagementService/LogoutResponse")]
-        backend2.Returnable Logout(uint timestamp, string sessionKey, byte[] hash);
+        web_client.ServiceReference.Returnable Logout(uint timestamp, string sessionKey, byte[] hash);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/Logout", ReplyAction="http://tempuri.org/IUsersManagementService/LogoutResponse")]
-        System.Threading.Tasks.Task<backend2.Returnable> LogoutAsync(uint timestamp, string sessionKey, byte[] hash);
+        System.Threading.Tasks.Task<web_client.ServiceReference.Returnable> LogoutAsync(uint timestamp, string sessionKey, byte[] hash);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/Register", ReplyAction="http://tempuri.org/IUsersManagementService/RegisterResponse")]
-        backend2.Returnable Register(uint timestamp, backend2.User data, byte[] hash);
+        web_client.ServiceReference.Returnable Register(uint timestamp, ClassLibrary1.User data, byte[] hash);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/Register", ReplyAction="http://tempuri.org/IUsersManagementService/RegisterResponse")]
-        System.Threading.Tasks.Task<backend2.Returnable> RegisterAsync(uint timestamp, backend2.User data, byte[] hash);
+        System.Threading.Tasks.Task<web_client.ServiceReference.Returnable> RegisterAsync(uint timestamp, ClassLibrary1.User data, byte[] hash);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -81,35 +208,35 @@ namespace web_client.ServiceReference {
             return base.Channel.TestAsync(input);
         }
         
-        public backend2.Returnable ListUsers(uint timestamp, string sessionKey, byte[] hash, string filterSet) {
+        public web_client.ServiceReference.Returnable ListUsers(uint timestamp, string sessionKey, byte[] hash, string filterSet) {
             return base.Channel.ListUsers(timestamp, sessionKey, hash, filterSet);
         }
         
-        public System.Threading.Tasks.Task<backend2.Returnable> ListUsersAsync(uint timestamp, string sessionKey, byte[] hash, string filterSet) {
+        public System.Threading.Tasks.Task<web_client.ServiceReference.Returnable> ListUsersAsync(uint timestamp, string sessionKey, byte[] hash, string filterSet) {
             return base.Channel.ListUsersAsync(timestamp, sessionKey, hash, filterSet);
         }
         
-        public backend2.Returnable Login(uint timestamp, string login1, string password, byte[] hash) {
+        public web_client.ServiceReference.Returnable Login(uint timestamp, string login1, string password, byte[] hash) {
             return base.Channel.Login(timestamp, login1, password, hash);
         }
         
-        public System.Threading.Tasks.Task<backend2.Returnable> LoginAsync(uint timestamp, string login, string password, byte[] hash) {
+        public System.Threading.Tasks.Task<web_client.ServiceReference.Returnable> LoginAsync(uint timestamp, string login, string password, byte[] hash) {
             return base.Channel.LoginAsync(timestamp, login, password, hash);
         }
         
-        public backend2.Returnable Logout(uint timestamp, string sessionKey, byte[] hash) {
+        public web_client.ServiceReference.Returnable Logout(uint timestamp, string sessionKey, byte[] hash) {
             return base.Channel.Logout(timestamp, sessionKey, hash);
         }
         
-        public System.Threading.Tasks.Task<backend2.Returnable> LogoutAsync(uint timestamp, string sessionKey, byte[] hash) {
+        public System.Threading.Tasks.Task<web_client.ServiceReference.Returnable> LogoutAsync(uint timestamp, string sessionKey, byte[] hash) {
             return base.Channel.LogoutAsync(timestamp, sessionKey, hash);
         }
         
-        public backend2.Returnable Register(uint timestamp, backend2.User data, byte[] hash) {
+        public web_client.ServiceReference.Returnable Register(uint timestamp, ClassLibrary1.User data, byte[] hash) {
             return base.Channel.Register(timestamp, data, hash);
         }
         
-        public System.Threading.Tasks.Task<backend2.Returnable> RegisterAsync(uint timestamp, backend2.User data, byte[] hash) {
+        public System.Threading.Tasks.Task<web_client.ServiceReference.Returnable> RegisterAsync(uint timestamp, ClassLibrary1.User data, byte[] hash) {
             return base.Channel.RegisterAsync(timestamp, data, hash);
         }
     }

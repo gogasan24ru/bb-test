@@ -3,6 +3,7 @@
     using System;
     using System.Data.Entity;
     using System.Linq;
+    using ClassLibrary1;
 
     public class Model1 : DbContext
     {

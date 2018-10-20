@@ -8,6 +8,7 @@ using System.ServiceModel;
 using System.ServiceModel.Description;
 using System.Text;
 using System.Threading.Tasks;
+using ClassLibrary1;
 
 namespace backend2
 {

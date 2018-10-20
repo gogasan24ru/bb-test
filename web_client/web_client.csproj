@@ -200,6 +200,12 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Properties\DataSources\backend2.Returnable.datasource" />
+    <None Include="Connected Services\ServiceReference\UsersManagementService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Connected Services\ServiceReference\web_client.ServiceReference.Returnable.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -251,9 +257,9 @@
     <WCFMetadataStorage Include="Connected Services\ServiceReference\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\backend2\backend2.csproj">
-      <Project>{c4c9e783-2853-4a97-a6ca-ea97f2a525b5}</Project>
-      <Name>backend2</Name>
+    <ProjectReference Include="..\ClassLibrary1\ClassLibrary1.csproj">
+      <Project>{dd65291c-39ab-4c60-9239-d5e6c1014c92}</Project>
+      <Name>ClassLibrary1</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -7,7 +7,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Web;
 using web_client.ServiceReference;
-using backend2;
+using ClassLibrary1;
 
 namespace web_client.Models
 {
@@ -52,7 +52,7 @@ namespace web_client.Models
             var cts = CurrentTimestamp();
             var Answer = client.ListUsers(cts, sessionKey, ComputeHash(cts + sessionKey + filterSet??"null"), filterSet);
 
-            return Answer.UserList;
+            return new List<User>(Answer.UserList);
         }
 
         public bool Logout(string sessionKey)
