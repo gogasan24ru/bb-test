@@ -27,9 +27,22 @@ namespace backend2
     class Program
     {
         public static List<Event> events;
+        public static LogLevel LogLvl;
 
-        public static void Log(string msg)
+
+        public enum LogLevel
         {
+            NotClassified = 0,
+            Information = 1,
+            Warning = 2,
+            Error = 3,
+            Critical = 4
+        }
+
+        public static void Log(string msg, LogLevel lvl = 0)
+        {
+            //TODO add cli arg for LogLevel adjust. Ie:
+            // if (lvl>LogLvl) {...
             lock (events)
                 events.Add(new Event(msg));
         }

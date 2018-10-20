@@ -66,7 +66,19 @@ namespace backend2
 
         #endregion
 
-        //        private bool CheckSumOk => MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(timestamp.ToString() + GlobalVar.ServerSecret)).Equals(CheckSum);
+        [OperationContract]
+        public bool CheckSumOk()
+        { 
+            return Convert.ToBase64String(MD5.Create().ComputeHash(
+                Encoding.UTF8.GetBytes(
+                    timestamp +
+                    (Boolean ? "true" : "false") +
+                    (StringData ?? "null") +
+                    ((UserList == null) ? "null" : UserList.ToArray().ToString()) +
+                    GlobalVar.ServerSecret
+                )
+            )).Equals(CheckSum);
+        }
 
         public dynamic ExtractData(out Type t)//TODO remove
         {
@@ -124,8 +136,13 @@ namespace backend2
         public Returnable ListUsers(UInt32 timestamp, string sessionKey, byte[] hash, int page=0, string filterSet=null)
         //TODO "LIMIT A B"
         {
+            Program.Log("ListUsers method called.",Program.LogLevel.Information);
             var hashOk = CheckHash(timestamp + sessionKey + filterSet??"null" + page, hash);
-            Program.Log("ListUsers method called.");
+            if (!hashOk)
+            {
+                Program.Log("Request checksum failed.", Program.LogLevel.Error);
+                return new Returnable(false, "Request checksum failed.",new List<User>());
+            }
             var ret=new List<User>();
             using (var ctx = new Model1())
             {
