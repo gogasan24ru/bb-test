@@ -22,48 +22,28 @@ namespace web_client.ServiceReference {
         System.Threading.Tasks.Task<bool> TestAsync(string input);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/ListUsers", ReplyAction="http://tempuri.org/IUsersManagementService/ListUsersResponse")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Reflection.MemberInfo))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Type))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(backend2.User))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(backend2.Passport))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(backend2.sex))]
-        backend2.Returnable ListUsers(string sessionKey, byte[] hash);
+        backend2.Returnable ListUsers(uint timestamp, string sessionKey, byte[] hash, string filterSet);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/ListUsers", ReplyAction="http://tempuri.org/IUsersManagementService/ListUsersResponse")]
-        System.Threading.Tasks.Task<backend2.Returnable> ListUsersAsync(string sessionKey, byte[] hash);
+        System.Threading.Tasks.Task<backend2.Returnable> ListUsersAsync(uint timestamp, string sessionKey, byte[] hash, string filterSet);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/Login", ReplyAction="http://tempuri.org/IUsersManagementService/LoginResponse")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Reflection.MemberInfo))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Type))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(backend2.User))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(backend2.Passport))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(backend2.sex))]
-        backend2.Returnable Login([System.ServiceModel.MessageParameterAttribute(Name="login")] string login1, string password, byte[] hash);
+        backend2.Returnable Login(uint timestamp, [System.ServiceModel.MessageParameterAttribute(Name="login")] string login1, string password, byte[] hash);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/Login", ReplyAction="http://tempuri.org/IUsersManagementService/LoginResponse")]
-        System.Threading.Tasks.Task<backend2.Returnable> LoginAsync(string login, string password, byte[] hash);
+        System.Threading.Tasks.Task<backend2.Returnable> LoginAsync(uint timestamp, string login, string password, byte[] hash);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/Logout", ReplyAction="http://tempuri.org/IUsersManagementService/LogoutResponse")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Reflection.MemberInfo))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Type))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(backend2.User))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(backend2.Passport))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(backend2.sex))]
-        backend2.Returnable Logout(string sessionKey, byte[] hash);
+        backend2.Returnable Logout(uint timestamp, string sessionKey, byte[] hash);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/Logout", ReplyAction="http://tempuri.org/IUsersManagementService/LogoutResponse")]
-        System.Threading.Tasks.Task<backend2.Returnable> LogoutAsync(string sessionKey, byte[] hash);
+        System.Threading.Tasks.Task<backend2.Returnable> LogoutAsync(uint timestamp, string sessionKey, byte[] hash);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/Register", ReplyAction="http://tempuri.org/IUsersManagementService/RegisterResponse")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Reflection.MemberInfo))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Type))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(backend2.User))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(backend2.Passport))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(backend2.sex))]
-        backend2.Returnable Register(backend2.User data, byte[] hash);
+        backend2.Returnable Register(uint timestamp, backend2.User data, byte[] hash);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/Register", ReplyAction="http://tempuri.org/IUsersManagementService/RegisterResponse")]
-        System.Threading.Tasks.Task<backend2.Returnable> RegisterAsync(backend2.User data, byte[] hash);
+        System.Threading.Tasks.Task<backend2.Returnable> RegisterAsync(uint timestamp, backend2.User data, byte[] hash);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -101,36 +81,36 @@ namespace web_client.ServiceReference {
             return base.Channel.TestAsync(input);
         }
         
-        public backend2.Returnable ListUsers(string sessionKey, byte[] hash) {
-            return base.Channel.ListUsers(sessionKey, hash);
+        public backend2.Returnable ListUsers(uint timestamp, string sessionKey, byte[] hash, string filterSet) {
+            return base.Channel.ListUsers(timestamp, sessionKey, hash, filterSet);
         }
         
-        public System.Threading.Tasks.Task<backend2.Returnable> ListUsersAsync(string sessionKey, byte[] hash) {
-            return base.Channel.ListUsersAsync(sessionKey, hash);
+        public System.Threading.Tasks.Task<backend2.Returnable> ListUsersAsync(uint timestamp, string sessionKey, byte[] hash, string filterSet) {
+            return base.Channel.ListUsersAsync(timestamp, sessionKey, hash, filterSet);
         }
         
-        public backend2.Returnable Login(string login1, string password, byte[] hash) {
-            return base.Channel.Login(login1, password, hash);
+        public backend2.Returnable Login(uint timestamp, string login1, string password, byte[] hash) {
+            return base.Channel.Login(timestamp, login1, password, hash);
         }
         
-        public System.Threading.Tasks.Task<backend2.Returnable> LoginAsync(string login, string password, byte[] hash) {
-            return base.Channel.LoginAsync(login, password, hash);
+        public System.Threading.Tasks.Task<backend2.Returnable> LoginAsync(uint timestamp, string login, string password, byte[] hash) {
+            return base.Channel.LoginAsync(timestamp, login, password, hash);
         }
         
-        public backend2.Returnable Logout(string sessionKey, byte[] hash) {
-            return base.Channel.Logout(sessionKey, hash);
+        public backend2.Returnable Logout(uint timestamp, string sessionKey, byte[] hash) {
+            return base.Channel.Logout(timestamp, sessionKey, hash);
         }
         
-        public System.Threading.Tasks.Task<backend2.Returnable> LogoutAsync(string sessionKey, byte[] hash) {
-            return base.Channel.LogoutAsync(sessionKey, hash);
+        public System.Threading.Tasks.Task<backend2.Returnable> LogoutAsync(uint timestamp, string sessionKey, byte[] hash) {
+            return base.Channel.LogoutAsync(timestamp, sessionKey, hash);
         }
         
-        public backend2.Returnable Register(backend2.User data, byte[] hash) {
-            return base.Channel.Register(data, hash);
+        public backend2.Returnable Register(uint timestamp, backend2.User data, byte[] hash) {
+            return base.Channel.Register(timestamp, data, hash);
         }
         
-        public System.Threading.Tasks.Task<backend2.Returnable> RegisterAsync(backend2.User data, byte[] hash) {
-            return base.Channel.RegisterAsync(data, hash);
+        public System.Threading.Tasks.Task<backend2.Returnable> RegisterAsync(uint timestamp, backend2.User data, byte[] hash) {
+            return base.Channel.RegisterAsync(timestamp, data, hash);
         }
     }
 }

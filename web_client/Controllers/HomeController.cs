@@ -11,7 +11,7 @@ namespace web_client.Controllers
     {
         public ActionResult Index()
         {
-            return Redirect("/Home/Logout");
+            return Redirect("/Home/ListUsers");
             //increase logout debug speed  
 
             var result = false;
@@ -52,9 +52,13 @@ namespace web_client.Controllers
             return Redirect("/");
         }
 
-        public ActionResult List()
+        public ActionResult ListUsers()
         {
-            throw new NotImplementedException();
+            var model = new ICUser();
+            //            model.Logout(Session["SessionKey"] as string);
+            var list = model.ListUsers("SOMESTRING");
+
+            return View(list);
         }
 
         public ActionResult Login()

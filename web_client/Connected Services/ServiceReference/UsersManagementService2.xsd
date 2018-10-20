@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/backend2" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/backend2" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:8000/UsersManagementService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/System" />
   <xs:complexType name="Returnable">
     <xs:sequence>
+      <xs:element minOccurs="0" name="Boolean" type="xs:boolean" />
       <xs:element minOccurs="0" name="CheckSum" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Data" nillable="true" type="xs:anyType" />
-      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="DataTypeLocal" nillable="true" type="q1:Type" />
+      <xs:element minOccurs="0" name="Contains" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StringData" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserList" nillable="true" type="tns:ArrayOfUser" />
       <xs:element minOccurs="0" name="timestamp" type="xs:unsignedInt" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Returnable" nillable="true" type="tns:Returnable" />
+  <xs:complexType name="ArrayOfUser">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="User" nillable="true" type="tns:User" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUser" nillable="true" type="tns:ArrayOfUser" />
   <xs:complexType name="User">
     <xs:sequence>
       <xs:element minOccurs="0" name="Age" type="xs:int" />

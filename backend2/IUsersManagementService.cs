@@ -20,17 +20,17 @@ namespace backend2
         bool Test(string input);
 
         [OperationContract]
-        Returnable ListUsers(string sessionKey, byte[] hash, string filterSet);
+        Returnable ListUsers(UInt32 timestamp, string sessionKey, byte[] hash, string filterSet);
 
         [OperationContract]
-        Returnable Login(string login, string password, byte[] hash);
+        Returnable Login(UInt32 timestamp, string login, string password, byte[] hash);
 
         [OperationContract]
-        Returnable Logout(string sessionKey, byte[] hash);
+        Returnable Logout(UInt32 timestamp, string sessionKey, byte[] hash);
 
 
         [OperationContract]
-        Returnable Register(User data, byte[] hash);
+        Returnable Register(UInt32 timestamp, User data, byte[] hash);
 
         //[OperationContract]
         //return MethodName(args?);

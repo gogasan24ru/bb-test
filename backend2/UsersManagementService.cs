@@ -59,7 +59,7 @@ namespace backend2
                     GlobalVar.ServerSecret
                 )
             ));//TODO confirm correct behavior, add data
-            int a = 1;
+//            int a = 1;
 
         }
 
@@ -120,8 +120,10 @@ namespace backend2
             return _sessionName;
         }
 
-        public Returnable ListUsers(string sessionKey, byte[] hash, string filterSet=null)
+        public Returnable ListUsers(UInt32 timestamp, string sessionKey, byte[] hash, string filterSet=null)
+        //TODO "LIMIT A B"
         {
+            var hashOk = CheckHash(timestamp + sessionKey + filterSet??"null", hash);
             Program.Log("ListUsers method called.");
             var ret=new List<User>();
             using (var ctx = new Model1())
@@ -132,33 +134,42 @@ namespace backend2
             return new Returnable(ret);
         }
 
-        public Returnable Login(string login, string password, byte[] hash)
+        public Returnable Login(UInt32 timestamp, string login, string password, byte[] hash)
         {
+            var hashOk= CheckHash(timestamp + login + password, hash);
             Program.Log("Login method called.");
             string ret = "im session key";
             return new Returnable(ret);
         }
 
-        public Returnable Logout(string sessionKey, byte[] hash)
+        public Returnable Logout(UInt32 timestamp, string sessionKey, byte[] hash)
         {
             Program.Log("Logout method called.");
 
             bool ret = false;
             var localHash = MD5.Create().ComputeHash(
-                Encoding.UTF8.GetBytes(
+                Encoding.UTF8.GetBytes(timestamp+
                     sessionKey + GlobalVar.ClientSecret
                 ));
-            ret = localHash.SequenceEqual(hash);
+            ret = CheckHash(timestamp+sessionKey, hash);
 
             return new Returnable(ret);
         }
 
-        public Returnable Register(User data, byte[] hash)
+        public Returnable Register(UInt32 timestamp, User data, byte[] hash)
         {
-//            throw new NotImplementedException();
+            var hashok = CheckHash(timestamp.ToString(), hash);
+            //            throw new NotImplementedException();
             Program.Log("Register method called.");
             bool ret = false;
             return new Returnable(ret);
+        }
+
+        private bool CheckHash(string data, byte[] remoteHash)
+        {
+            return MD5.Create().ComputeHash(
+                Encoding.UTF8.GetBytes(data +
+                GlobalVar.ClientSecret)).SequenceEqual(remoteHash);
         }
     }
 }

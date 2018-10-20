@@ -21,6 +21,14 @@ namespace web_client.Models
         public string Password { get; set; }
     }
 
+    public class UsersListModel
+    {
+        [Display]
+        public List<User> Listing { get; set; }
+
+
+    }
+
     public class ICUser
     {
 
@@ -39,16 +47,33 @@ namespace web_client.Models
                 return client.Test("nvm");
         }
 
+        public List<User> ListUsers(string sessionKey, string filterSet=null)
+        {
+            var cts = CurrentTimestamp();
+            var Answer = client.ListUsers(cts, sessionKey, ComputeHash(cts + sessionKey + filterSet??"null"), filterSet);
+
+            return Answer.UserList;
+        }
+
         public bool Logout(string sessionKey)
         {
-            var Answer=  client.Logout(sessionKey,
-                MD5.Create().ComputeHash(
-                    Encoding.UTF8.GetBytes(
-                        sessionKey + 
-                        GlobalVar.ClientSecret
-                        )
-                    ));
+            var cts = CurrentTimestamp();
+            var Answer=  client.Logout(cts,sessionKey,ComputeHash(cts+sessionKey));
             return false;
+        }
+
+        private UInt32 CurrentTimestamp()
+        {
+            return (UInt32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+        }
+        private byte[] ComputeHash(string data)
+        {
+            return MD5.Create().ComputeHash(
+                Encoding.UTF8.GetBytes(
+                    data +
+                    GlobalVar.ClientSecret
+                )
+            );
         }
     }
 }
