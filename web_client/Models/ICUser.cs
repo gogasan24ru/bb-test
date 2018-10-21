@@ -21,14 +21,6 @@ namespace web_client.Models
         public string Password { get; set; }
     }
 
-    public class UsersListModel
-    {
-        [Display]
-        public List<User> Listing { get; set; }
-
-
-    }
-
     public class ICUser
     {
 
@@ -50,18 +42,23 @@ namespace web_client.Models
         public List<User> ListUsers(string sessionKey, int page = 0, string filterSet =null)
         {
             var cts = CurrentTimestamp();
-            var Answer = client.ListUsers(cts, sessionKey, ComputeHash(cts + sessionKey + filterSet??"null" + page),page, filterSet);
-            if (!Answer.CheckSumOk)
-            {
-                throw new Exception("Received data have checksum mismatch.");
-            }
+            var Answer = client.ListUsers(cts, sessionKey, ComputeHash(cts + sessionKey + filterSet ?? "null" + page), page, filterSet);
+            CheckAnswerChecksum(Answer);
 
-               
-            if(Answer.Boolean)
+            if (Answer.Boolean)
                 return new List<User>(Answer.UserList);
             else
             {
+//                return null;
                 throw new Exception(Answer.StringData);
+            }
+        }
+
+        private static void CheckAnswerChecksum(Returnable Answer)
+        {
+            if (!Answer.CheckSumOk)
+            {
+                throw new Exception("Received data have checksum mismatch.");
             }
         }
 
@@ -70,6 +67,21 @@ namespace web_client.Models
             var cts = CurrentTimestamp();
             var Answer=  client.Logout(cts,sessionKey,ComputeHash(cts+sessionKey));
             return false;
+        }
+
+        public string Login(string login, string password)
+        {
+            var cts = CurrentTimestamp();
+            //var Answer = client.ListUsers(cts, sessionKey, ComputeHash(cts + sessionKey + filterSet ?? "null" + page), page, filterSet);
+            var Answer = client.Login(cts, login, password, ComputeHash(cts+login+password));
+            CheckAnswerChecksum(Answer);
+
+            if (Answer.Boolean)
+                return Answer.StringData;
+            else
+            {
+                throw new Exception(Answer.StringData);
+            }
         }
 
         private UInt32 CurrentTimestamp()

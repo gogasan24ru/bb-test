@@ -6,10 +6,8 @@ using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.ServiceModel;
 using System.Text;
-using Newtonsoft.Json;
-using ClassLibrary1;
 
-namespace backend2
+namespace ClassLibrary1
 {
 
 
@@ -73,6 +71,14 @@ namespace backend2
                 logger.Log("Request checksum failed.", LogLevel.Error);
                 return new Returnable(false, "Request checksum failed.",new List<User>());
             }
+
+            var isAuthed = IsAuthed(sessionKey);
+            if (!isAuthed)
+            {
+                logger.Log("Not authenticated request received.", LogLevel.Error);
+                return new Returnable(false, "Not authenticated request received.", new List<User>());
+            }
+
             var ret=new List<User>();
             using (var ctx = new Model1())
             {
@@ -84,10 +90,33 @@ namespace backend2
 
         public Returnable Login(UInt32 timestamp, string login, string password, byte[] hash)
         {
-            var hashOk= CheckHash(timestamp + login + password, hash);
             logger.Log("Login method called.");
-            string ret = "im session key";
-            return new Returnable(ret);
+            var sessionKey = Convert.ToBase64String(MD5.Create().ComputeHash(
+                Encoding.UTF8.GetBytes(
+                    timestamp + login + password
+                )));
+            var hashOk= CheckHash(timestamp + login + password, hash);
+            if (!hashOk)
+            {
+                logger.Log("Request checksum failed.", LogLevel.Error);
+                return new Returnable(false, "Request checksum failed.", new List<User>());
+            }
+
+            var ctx = new Model1();
+
+            var found = new List<User>(ctx.Users).FindAll(a => a.Login.Equals(login) && a.Password.Equals(password));
+            if (found.Count==0)
+            {
+                logger.Log("Invalid username or password provided.", LogLevel.Error);
+                return new Returnable(false, "Invalid username or password provided.", new List<User>());
+            }
+
+
+            ctx.Users.Single(a => a.Password.Equals(password) && a.Login.Equals(login)).SessionKey = sessionKey;
+            ctx.SaveChanges();
+            logger.Log(login+" successfully logged in, session key \""+sessionKey+"\" stored in database.");
+
+            return new Returnable(sessionKey);
         }
 
         public Returnable Logout(UInt32 timestamp, string sessionKey, byte[] hash)
@@ -95,11 +124,19 @@ namespace backend2
             logger.Log("Logout method called.");
 
             bool ret = false;
-            var localHash = MD5.Create().ComputeHash(
-                Encoding.UTF8.GetBytes(timestamp+
-                    sessionKey + GlobalVar.ClientSecret
-                ));
-            ret = CheckHash(timestamp+sessionKey, hash);
+            var hashOk = CheckHash(timestamp + sessionKey, hash);
+            if (!hashOk)
+            {
+                logger.Log("Request checksum failed.", LogLevel.Error);
+                return new Returnable(false, "Request checksum failed.", new List<User>());
+            }
+
+            var ctx = new Model1();
+
+            var single=ctx.Users.Single(a => a.SessionKey.Equals(sessionKey));
+            single.SessionKey = null;
+            logger.Log(single.Login + " successfully logged out.");
+            ctx.SaveChanges();
 
             return new Returnable(ret);
         }
@@ -111,6 +148,16 @@ namespace backend2
             logger.Log("Register method called.");
             bool ret = false;
             return new Returnable(ret);
+        }
+
+        private bool IsAuthed(string sessionKey)
+        {
+            return new List<User>((new Model1()).Users).FindAll(
+                       a=>
+                           (a.SessionKey!=null)?
+                           a.SessionKey.Equals(sessionKey):
+                               (false)
+                       ).Count>0;
         }
 
         private bool CheckHash(string data, byte[] remoteHash)

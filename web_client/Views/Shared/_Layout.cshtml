@@ -17,19 +17,60 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Имя приложения", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <div class="navbar-brand">
+                    @{
+                        if (Session["LoggedIn"] != null && (bool)Session["LoggedIn"])
+                        {
+                            @:Logged in as @Session["Login"]
+                        }
+                        else
+                        {
+                            @:Not logged in.
+                        }
+                    }
+                </div>
+                @* @Html.ActionLink("Имя приложения", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" }) *@
             </div>
             <div class="navbar-collapse collapse">
+                                @* @Html.DisplayText(Context.Session["Login"]?.ToString()??"123"); *@
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Домашняя страница", "Index", "Home")</li>
+
+
+                    @* <li>@Html.ActionLink("Register implementation", "Register", "Home")</li> *@
+                    @* <li>@Html.ActionLink("Login implementation", "Login", "Home")</li> *@
+
+                    @* @Html.ActionLink("Домашняя страница", "Index", "Home") *@
+                    @{
+                        if (Session["Login"] != null)
+                        {
+                            @:<li>
+                            @Html.ActionLink("Logout implementation", "Logout", "Home")
+                            @:</li>
+                            @:<li>
+                            @Html.ActionLink("List users implementation", "ListUsers", "Home")
+                            @:</li>
+                        }
+                        else
+
+                        {
+                            @:<li>
+                            @Html.ActionLink("Register implementation", "Register", "Home")
+                            @:</li>
+                            @:<li>
+                            @Html.ActionLink("Login implementation", "Login", "Home")
+                            @:</li>
+                        }
+                    }
+
+
+                    @* <li>@Html.ActionLink("Logout implementation", "Logout", "Home")</li> *@
+                    @* <li>@Html.ActionLink("List users implementation", "ListUsers", "Home")</li> *@
+
+
                     @* <li>@Html.ActionLink("О программе", "About", "Home")</li> *@
                     @* <li>@Html.ActionLink("Контакт", "Contact", "Home")</li> *@
-                    <li>@Html.ActionLink("Register implementation", "Register", "Home")</li>
-                    <li>@Html.ActionLink("Login implementation", "Login", "Home")</li>
-                    <li>@Html.ActionLink("Logout implementation", "Logout", "Home")</li>
-                    <li>@Html.ActionLink("List users implementation", "ListUsers", "Home")</li>
                 </ul>
-            </div>
+                    </div>
         </div>
     </div>
     <div class="container body-content">

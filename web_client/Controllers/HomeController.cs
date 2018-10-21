@@ -11,7 +11,7 @@ namespace web_client.Controllers
     {
         public ActionResult Index()
         {
-            return Redirect("/Home/ListUsers");
+            //return Redirect("/Home/ListUsers");
             //increase logout debug speed  
 
             var result = false;
@@ -46,22 +46,33 @@ namespace web_client.Controllers
         public ActionResult Logout()
         {
             var model = new ICUser();
-//            model.Logout(Session["SessionKey"] as string);
-            model.Logout("SOMESTRING");
+            string sessionKey = (string)Session["SessionKey"] ?? "";
+            model.Logout(sessionKey);
 
+            Session["SessionKey"] = null;
+            Session["Login"] = null;
+            Session["LoggedIn"] = false;
             return Redirect("/");
         }
 
         public ActionResult ListUsers(int page = 0)
         {
-            if (page < 0) page = 0;
-            var model = new ICUser();
-            //            model.Logout(Session["SessionKey"] as string);
-            var list = model.ListUsers("SOMESTRING",page);
-            while((list.Count == 0)&& (page >= 0)) list = model.ListUsers("SOMESTRING", --page);
-            //TODO max page count should be received from server 
-            ViewData["page"] = page;
-            return View(list);
+            try
+            {
+                if (page < 0) page = 0;
+                var model = new ICUser();
+                string sessionKey = (string)Session["SessionKey"] ?? "";
+                var list = model.ListUsers(sessionKey, page);
+                while((list.Count == 0)&& (page >= 0)) list = model.ListUsers(sessionKey, --page);
+                //TODO max page count should be received from server 
+                ViewData["page"] = page;
+                return View(list);
+            }
+            catch (Exception e)
+            {
+                ViewData["Message"] = e.Message;
+                return View("Error");
+            }
         }
 
         public ActionResult Login()
@@ -70,16 +81,32 @@ namespace web_client.Controllers
             return View();
         }
 
-        public ActionResult Register()
+        public ActionResult Register(ClassLibrary1.User data=null)
         {
+            if(data==null)
+                return View();
+
+            //...
+
+            return Redirect("/Home/Login");
             throw new NotImplementedException();
         }
 
         public ActionResult LoginAction(LoginModel data)
         {
             var model = new ICUser();
-//            model.
-            throw new NotImplementedException();
+            try
+            {
+                Session["SessionKey"] = model.Login(data.Username, data.Password);
+                Session["Login"] = data.Username;
+                Session["LoggedIn"] = true;
+            }
+            catch (Exception e)
+            {
+                ViewData["Message"] = e.Message;
+                return View("Error");
+            }
+//            throw new NotImplementedException();
             return Redirect("/");
         }
     }
