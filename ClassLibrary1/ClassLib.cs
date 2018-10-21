@@ -168,6 +168,7 @@ namespace ClassLibrary1
         public int Number { get; set; }
 
 
+
         [ScaffoldColumn(false)]
         public string sSerial => $"{Serial:0000}";
 
@@ -197,21 +198,24 @@ namespace ClassLibrary1
 
         [Required]
         [Display(Name = "Возраст")]
-        [Range(18, int.MaxValue)]
+        [Range(18, int.MaxValue,ErrorMessage = "Age should be at least 18")]
         public int Age { get; set; } = 18;//ushort?
 
-        [MaxLength(8), MinLength(1)]
+//        [MaxLength(8, ErrorMessage = "Login too long"), MinLength(1,ErrorMessage = "Login too short")]
         [Index(IsClustered=false,IsUnique = true,Order=0)]//Should be
         [Required]
         [Display(Name = "Login")]
+        [RegularExpression("^[A-Za-z0-9]{1,8}$", ErrorMessage = "Login length must be between 1 and 8 characters, only latin alphabet and digits are allowed")]
         public string Login { get; set; }
 
-        [MaxLength(30)]
+        //[MaxLength(30, ErrorMessage = "Name too long")]
+        [RegularExpression("^[А-Яа-я]{0,30}$",ErrorMessage = "Name length must be les than 30 characters, cyrillic alphabet")]
         [Required]
         [Display(Name = "Имя")]
         public string Name { get; set; }
 
-        [MaxLength(30)]
+        //[MaxLength(30)]
+        [RegularExpression("^[А-Яа-я]{0,30}$", ErrorMessage = "Surname length must be les than 30 characters, cyrillic alphabet")]
         [Required]
         [Display(Name = "Фамилия")]
         public string Surname { get; set; }
@@ -219,6 +223,7 @@ namespace ClassLibrary1
         //        [MaxLength(8), MinLength(4)]
         [Required]
         [Display(Name = "Пароль")]
+        [RegularExpression("^(?=.*[a-zA-Z])(?=.*[0-9]).{4,8}$", ErrorMessage = "Password length must be between 4 and 8 characters, only latin alphabet and at least one digit")]
         public string Password { get; set; }
         [Required]
         [Display(Name = "Паспортные данные")]

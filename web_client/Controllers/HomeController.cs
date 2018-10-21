@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ClassLibrary1;
 using web_client.Models;
 
 namespace web_client.Controllers
@@ -83,10 +84,16 @@ namespace web_client.Controllers
 
         public ActionResult Register(ClassLibrary1.User data)
         {
-            if(data.IsAuthenticated==false)
+            //new User(){Age=10};//[Range(18, int.MaxValue)] not throwing exception, wtf.
+            //assuming i should validate it myself.
+            int errors = 0;
+
+            if (data.IsAuthenticated==false)
                 return View();
             data.IsAuthenticated = false;
 
+            //if () errors++;
+            
             //...
             try
             {
@@ -99,6 +106,22 @@ namespace web_client.Controllers
                 ViewData["Message"] = e.Message;
                 return View("Error");
             }
+
+            if (!ModelState.IsValid)
+            {
+                string message="";
+                foreach (var key in ViewData.ModelState.Keys)
+                    foreach (ModelError error in ModelState[key].Errors)
+                    {
+                        message += key + " (" + (ModelState[key].Value.AttemptedValue) + "): " + error.ErrorMessage + "<br/>";
+                    }
+
+                ViewData["Message"] = ("Поля заполнены неправильно:<br/>"+message);
+                return View("Error");
+            }
+
+            var model= new ICUser();
+            model.Register(data);
 
             return Redirect("/Home/Login");
             throw new NotImplementedException();

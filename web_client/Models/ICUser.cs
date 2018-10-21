@@ -73,6 +73,23 @@ namespace web_client.Models
             return false;
         }
 
+        public bool Register(User u)
+        {
+
+            var cts = CurrentTimestamp();
+            var Answer = client.Register(cts, u, ComputeHash(cts + u.ToString()));
+            //var Answer = client.ListUsers(cts, sessionKey, ComputeHash(cts + sessionKey + filterSet ?? "null" + page), page, filterSet);
+            //var Answer = client.Login(cts, login, password, ComputeHash(cts + login + password));
+            CheckAnswerChecksum(Answer);
+
+            if (Answer.Boolean)
+                return true;
+            else
+            {
+                throw new Exception(Answer.StringData);
+            }
+        }
+
         public string Login(string login, string password)
         {
             var cts = CurrentTimestamp();

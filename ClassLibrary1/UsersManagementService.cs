@@ -143,10 +143,27 @@ namespace ClassLibrary1
 
         public Returnable Register(UInt32 timestamp, User data, byte[] hash)
         {
-            var hashok = CheckHash(timestamp.ToString(), hash);
+            var hashok = CheckHash(timestamp.ToString()+data.ToString(), hash);
+            if (!hashok)
+            {
+                logger.Log("Request checksum failed.", LogLevel.Error);
+                return new Returnable(false, "Request checksum failed.", new List<User>());
+            }
             //            throw new NotImplementedException();
             logger.Log("Register method called.");
-            bool ret = false;
+            var ctx = new Model1();
+
+            try
+            {
+                ctx.Users.Add(data);
+            }
+            catch (Exception e)
+            {
+                logger.Log(e.Message, LogLevel.Error);
+                return new Returnable(false, e.Message);
+            }
+
+            bool ret = true;
             return new Returnable(ret);
         }
 

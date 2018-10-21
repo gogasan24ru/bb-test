@@ -9,7 +9,7 @@
     <hgroup>
         <h1>Ошибка.</h1>
         <h2>При обработке запроса произошла ошибка.</h2>
-        @ViewData["Message"]
+        @Html.Raw("<pre>" + ViewData["Message"] + "</pre>");
     </hgroup>
 </body>
 </html>
