@@ -21,6 +21,7 @@ namespace backend2
     [ServiceBehavior]
     public class UsersManagementService : IUsersManagementService
     {
+        
         //public return MethodName(args?)
         //{
         //    smthing
@@ -39,8 +40,16 @@ namespace backend2
 
         public UsersManagementService()
         {
+            //TODO need to be replaced with some native logging.
+            logger = (Logger) GlobalVar.Misc[0];
+
             _sessionName = "upstart";
         }
+
+//        ~UsersManagementService()
+//        {
+//            logger.HandleEvents();
+//        }
 
 
 

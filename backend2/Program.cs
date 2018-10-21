@@ -39,18 +39,17 @@ namespace backend2
         /// <returns>Service entity. You should stop it, when shutting down app</returns>
         private static ServiceHost  RunService()
         {
-
-
-            return RunCustomHost();
+            var t = RunCustomHost();
+            t.UnknownMessageReceived += UMR_listener;
+            t.Faulted += Fault_listener;
+            return t;
 //            ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
 //            smb.HttpGetEnabled = true;
 //            //            smb.HttpGetBinding=new BasicHttpBinding();
 ////            ServiceHost host = new ServiceHost(typeof(UsersManagementService), new Uri("http://localhost:8000/UsersManagementService"));
 //            ServiceHost host = new ServiceHost(smb, new Uri("http://localhost:8000/UsersManagementService"));
 //            host.Open();
-//            host.UnknownMessageReceived += UMR_listener;
-//            host.Faulted += Fault_listener;
-//
+
 //            host.AddServiceEndpoint(typeof(IUsersManagementService), new WSHttpBinding(), "");
 //            //            Console.WriteLine("The service is ready.");
 //            //            Console.WriteLine("Press <ENTER> to terminate service.");
@@ -110,6 +109,8 @@ namespace backend2
             //            events = new List<Event>();
             //            events.Add(new Event("Application start."));
             logger= new Logger();
+            GlobalVar.Misc = new List<object>();
+            GlobalVar.Misc.Add(logger);
             logger.Log("Application stated.");
 
 

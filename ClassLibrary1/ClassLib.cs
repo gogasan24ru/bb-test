@@ -67,13 +67,13 @@ namespace ClassLibrary1
         }
     }
 
-    public static class GlobalVar
+
+    public static  class GlobalVar
     {
-        /// <summary>
-        /// Used in data validating. Because no https :(
-        /// </summary>
         public const string ClientSecret = "ImMegaClientSecret";
         public const string ServerSecret = "ImMegaServerSecret";
+
+        public static List<object> Misc;//dummy walkaround 
     }
 
     [DataContract]
