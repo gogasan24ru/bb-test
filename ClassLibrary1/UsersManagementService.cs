@@ -150,12 +150,13 @@ namespace ClassLibrary1
                 return new Returnable(false, "Request checksum failed.", new List<User>());
             }
             //            throw new NotImplementedException();
-            logger.Log("Register method called.");
+            logger.Log("Register method called. Data: "+data.ToString());
             var ctx = new Model1();
 
             try
             {
                 ctx.Users.Add(data);
+                ctx.SaveChanges();
             }
             catch (Exception e)
             {

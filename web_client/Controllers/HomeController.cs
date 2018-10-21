@@ -48,7 +48,17 @@ namespace web_client.Controllers
         {
             var model = new ICUser();
             string sessionKey = (string)Session["SessionKey"] ?? "";
-            model.Logout(sessionKey);
+            try
+            {
+                model.Logout(sessionKey);
+            }
+            catch (Exception e)
+            {
+
+                ViewData["Message"] = e.Message;
+                return View("Error");
+
+            }
 
             Session["SessionKey"] = null;
             Session["Login"] = null;
@@ -121,7 +131,16 @@ namespace web_client.Controllers
             }
 
             var model= new ICUser();
-            model.Register(data);
+            try
+            {
+                model.Register(data);
+            }
+            catch (Exception e)
+            {
+
+                ViewData["Message"] = e.Message+ "<br/>Скорее всего ([Index(IsClustered=false,<b>IsUnique = true</b>,Order=0)]), пользователь с таким именем пользователя уже существует //TODO";
+                return View("Error");
+            }
 
             return Redirect("/Home/Login");
             throw new NotImplementedException();

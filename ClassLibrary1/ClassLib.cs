@@ -98,7 +98,7 @@ namespace ClassLibrary1
         public List<User> UserList { get; set; }
 
         #region used functions
-        public string ToJson() //TODO check behavior 
+        public string ToJson() 
         {
             return JsonConvert.SerializeObject(this);
         }
@@ -187,6 +187,11 @@ namespace ClassLibrary1
 
     public class User
     {
+        public override string ToString()
+        {
+            return "" + UserId + ";" + Sex + ";" + Age + ";" + Login + ";" + Name + ";" + Surname + ";" + Password +
+                   ";" + Passport.ToString();
+        }
 
         [Index]
         [ScaffoldColumn(false),Required]
@@ -209,13 +214,13 @@ namespace ClassLibrary1
         public string Login { get; set; }
 
         //[MaxLength(30, ErrorMessage = "Name too long")]
-        [RegularExpression("^[А-Яа-я]{0,30}$",ErrorMessage = "Name length must be les than 30 characters, cyrillic alphabet")]
+        [RegularExpression("^[А-Яа-я]{0,30}$",ErrorMessage = "Name length must be les than 30 characters, cyrillic alphabet, only letters")]
         [Required]
         [Display(Name = "Имя")]
         public string Name { get; set; }
 
         //[MaxLength(30)]
-        [RegularExpression("^[А-Яа-я]{0,30}$", ErrorMessage = "Surname length must be les than 30 characters, cyrillic alphabet")]
+        [RegularExpression("^[А-Яа-я]{0,30}$", ErrorMessage = "Surname length must be les than 30 characters, cyrillic alphabet, only letters")]
         [Required]
         [Display(Name = "Фамилия")]
         public string Surname { get; set; }
