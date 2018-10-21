@@ -11,6 +11,10 @@ using ClassLibrary1;
 
 namespace web_client.Models
 {
+    public class UserRegModel
+    {
+        public string Username { get; set; }
+    }
     public class LoginModel
     {
         [Required]

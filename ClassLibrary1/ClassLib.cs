@@ -156,13 +156,22 @@ namespace ClassLibrary1
     {
 
         [Index]
+        [ScaffoldColumn(false)]
         public int PassportId { get; set; }
 
+        [Required, Range(0, 9999)]
+        [Display(Name = "Серия паспотра")]
         public int Serial { get; set; }
 
+        [Required, Range(0, 999999)]
+        [Display(Name="Номер паспотра")]
         public int Number { get; set; }
 
+
+        [ScaffoldColumn(false)]
         public string sSerial => $"{Serial:0000}";
+
+        [ScaffoldColumn(false)]
         public string sNumber => $"{Number:000000}";
 
         public Passport(int serial, int number)
@@ -179,26 +188,45 @@ namespace ClassLibrary1
     {
 
         [Index]
-//        [Index(false, true, 0)]
+        [ScaffoldColumn(false),Required]
         public int UserId { get; set; }
+        [Required]
+        [Display(Name = "Пол")]
+        [ScaffoldColumn(false)] //required for drop down list. Any better solution? 
         public sex Sex { get; set; }
-        public int Age { get; set; }//ushort?
+
+        [Required]
+        [Display(Name = "Возраст")]
+        [Range(18, int.MaxValue)]
+        public int Age { get; set; } = 18;//ushort?
 
         [MaxLength(8), MinLength(1)]
         [Index(IsClustered=false,IsUnique = true,Order=0)]//Should be
+        [Required]
+        [Display(Name = "Login")]
         public string Login { get; set; }
 
         [MaxLength(30)]
+        [Required]
+        [Display(Name = "Имя")]
         public string Name { get; set; }
 
         [MaxLength(30)]
+        [Required]
+        [Display(Name = "Фамилия")]
         public string Surname { get; set; }
 
-//        [MaxLength(8), MinLength(4)]
+        //        [MaxLength(8), MinLength(4)]
+        [Required]
+        [Display(Name = "Пароль")]
         public string Password { get; set; }
+        [Required]
+        [Display(Name = "Паспортные данные")]
         public Passport Passport { get; set; }
 
-        public bool IsAuthenticated { get; set; }
+        [ScaffoldColumn(false)]
+        public bool IsAuthenticated { get; set; } //TODO Wrong name. Should be renamed. 
+        [ScaffoldColumn(false)]
         public string SessionKey { get; set; }
 
 //        public User(sex sex, ushort age, string login, string name, string surename, string password, Passport passport)

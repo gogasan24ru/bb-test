@@ -1,7 +1,25 @@
-﻿@model => ClassLibrary1.User
+﻿@model ClassLibrary1.User
+@using web_client.Controllers
 @{
     ViewBag.Title = "Register";
 }
 
 <h2>Register</h2>
 
+@using (Html.BeginForm("Register", "Home"))
+{
+@*     @Html.HiddenFor(user =>user.IsAuthenticated,new {@value = true}) *@
+    @Html.Hidden("IsAuthenticated", true)
+    @Html.EditorForModel()
+    <div class="editor-label">
+        @Html.LabelFor(user => user.Sex)
+    </div>
+    @Html.EnumDropDownListFor(user => user.Sex, new { @class = "text-box" })
+    @Html.ValidationMessageFor(user => user.Sex)
+
+    <div class="editor-label">
+        @Html.LabelFor(user => user.Passport)
+    </div>
+    @Html.EditorFor(user => user.Passport)
+    <input type="submit" value="Register" />
+}

@@ -81,12 +81,24 @@ namespace web_client.Controllers
             return View();
         }
 
-        public ActionResult Register(ClassLibrary1.User data=null)
+        public ActionResult Register(ClassLibrary1.User data)
         {
-            if(data==null)
+            if(data.IsAuthenticated==false)
                 return View();
+            data.IsAuthenticated = false;
 
             //...
+            try
+            {
+//                var model = new ICUser();
+//                var list = model.Register
+//                return View(list);
+            }
+            catch (Exception e)
+            {
+                ViewData["Message"] = e.Message;
+                return View("Error");
+            }
 
             return Redirect("/Home/Login");
             throw new NotImplementedException();
