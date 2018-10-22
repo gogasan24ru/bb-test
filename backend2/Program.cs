@@ -68,7 +68,8 @@ namespace backend2
             {
                 List<String> Names = new List<string>() { "Михаил", "Виталий","Петр","Антон","Вадим","Валерий" };
                 List<String> Surnames = new List<string>() { "Иванов", "Петров","Сидоров","Лукьяненко" };
-                List<String> Passwords = new List<string>() { "cjhjrnsc", "zxj6tpmz","yd40gece","yekb9fyf" };//y
+                //List<String> Passwords = new List<string>() { "cjhjrnsc", "zxj6tpmz", "yd40gece", "yekb9fyf" };//y
+                List<String> Passwords = new List<string>() { "abc123"};//y
                 //List<String> Logins = new List<string>() { "user1", "" };//autoincrement in demo code
                 DateTime start = DateTime.Now;
 
@@ -109,8 +110,7 @@ namespace backend2
             //            events = new List<Event>();
             //            events.Add(new Event("Application start."));
             logger= new Logger();
-            GlobalVar.Misc = new List<object>();
-            GlobalVar.Misc.Add(logger);
+            GlobalVar.GlobalLogger = logger;
             logger.Log("Application stated.");
 
 
@@ -118,64 +118,56 @@ namespace backend2
 
 
             //TODO: change parsing model to smth like below:
-            //            var arguments = new List<string>(args);
-            //            try
-            //            {
-            //                var ComplicatedArgument = "--complicated-argument";
-            //                if (arguments.Contains(ComplicatedArgument))
-            //                {
-            //                    var a = arguments[arguments.IndexOf(ComplicatedArgument) + 1];
-            //                    int b; 
-            //                    int.TryParse(arguments[arguments.IndexOf(ComplicatedArgument) + 2],out b);
-            //                    ComplicatedMethod(a, b);
-            //                }
-            //            }
-            //            catch (Exception e)
-            //            {
-            //                Console.WriteLine(e);
-            //                throw new ArgumentException(e.Message);
-            //            }
-
-
-            if (args.Length >= 1)//TODO: replace with advanced args parsing!
+            var arguments = new List<string>(args);
+            try
             {
-                if (args[0] == "--help")
+                //                var ComplicatedArgument = "--complicated-argument";
+                //                if (arguments.Contains(ComplicatedArgument))
+                //                {
+                //                    var a = arguments[arguments.IndexOf(ComplicatedArgument) + 1];
+                //                    int b; 
+                //                    int.TryParse(arguments[arguments.IndexOf(ComplicatedArgument) + 2],out b);
+                //                    ComplicatedMethod(a, b);
+                //                }
+                if (arguments.Contains("--enable-tracing"))
+                {
+                }
+                else
+                {
+                }
+                if (arguments.Contains("--help"))
                 {
                     throw new Exception("No help supplied yet :)");
                 }
-
-                if (args[0] == "--create-with-demo")
+                if (arguments.Contains("--create-with-demo"))
                 {
                     CreateDatabase();
                     DemoInit();
                 }
-
-                if (args[0] == "--drop-database")
+                if (arguments.Contains("--drop-database"))
                 {
                     logger.Log((new Model1()).Database.Delete()
                         ? "Successfully done"
                         : "Done with error (no database?)");
                 }
-
-                if (args[0] == "--create-database")
+                if (arguments.Contains("--create-database"))
                 {
                     CreateDatabase();
                 }
-
-                if (args[0] == "--run-service")
+                if (arguments.Contains("--run-service"))
                 {
                     CreateDatabase();
                     host = RunService();
-                    if(host!=null) logger.Log("service start, "+host.BaseAddresses[0]);
-                    
+                    if (host != null) logger.Log("service start, " + host.BaseAddresses[0]);
+
                 }
-
-//                if (args[0] == "--metadata-service")
-//                {
-//                    if (RunCustomHost()) return;
-//                }
-
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw new ArgumentException(e.Message);
+            }
+
 
             if(host!=null)//Service started. wait until shutdown with ^c maybe.
                 while (true)

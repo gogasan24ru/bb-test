@@ -98,9 +98,9 @@ namespace web_client.Controllers
             //assuming i should validate it myself.
             int errors = 0;
 
-            if (data.IsAuthenticated==false)
+            if (data.ChangedFlag == false)
                 return View();
-            data.IsAuthenticated = false;
+            data.ChangedFlag = false;
 
             //if () errors++;
             

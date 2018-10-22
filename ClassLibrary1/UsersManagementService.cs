@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Runtime.Serialization;
@@ -25,22 +26,17 @@ namespace ClassLibrary1
         //    smthing
         //}
         private string _sessionName;
-        public Logger logger { get; set; } 
 
-        public void setLogger(Logger l)
-        { logger = l;  }
 
         public bool Test(string input)
         {
+            Trace.WriteLine("Test method called.");
             return true;//I understand it should return smth more informational but not required in this test application
         }
 
 
         public UsersManagementService()
         {
-            //TODO need to be replaced with some native logging.
-            logger = (Logger) GlobalVar.Misc[0];
-
             _sessionName = "upstart";
         }
 
@@ -64,18 +60,18 @@ namespace ClassLibrary1
         public Returnable ListUsers(UInt32 timestamp, string sessionKey, byte[] hash, int page=0, string filterSet=null)
         {
 
-            logger.Log("ListUsers method called.", LogLevel.Information);
+            Trace.WriteLine("ListUsers method called.");
             var hashOk = CheckHash(timestamp + sessionKey + filterSet??"null" + page, hash);
             if (!hashOk)
             {
-                logger.Log("Request checksum failed.", LogLevel.Error);
+                Trace.TraceError("Request checksum failed.");
                 return new Returnable(false, "Request checksum failed.",new List<User>());
             }
 
             var isAuthed = IsAuthed(sessionKey);
             if (!isAuthed)
             {
-                logger.Log("Not authenticated request received.", LogLevel.Error);
+                Trace.TraceError("Not authenticated request received.");
                 return new Returnable(false, "Not authenticated request received.", new List<User>());
             }
 
@@ -90,7 +86,7 @@ namespace ClassLibrary1
 
         public Returnable Login(UInt32 timestamp, string login, string password, byte[] hash)
         {
-            logger.Log("Login method called.");
+            Trace.WriteLine("Login method called.");
             var sessionKey = Convert.ToBase64String(MD5.Create().ComputeHash(
                 Encoding.UTF8.GetBytes(
                     timestamp + login + password
@@ -98,7 +94,7 @@ namespace ClassLibrary1
             var hashOk= CheckHash(timestamp + login + password, hash);
             if (!hashOk)
             {
-                logger.Log("Request checksum failed.", LogLevel.Error);
+                Trace.TraceError("Request checksum failed.");
                 return new Returnable(false, "Request checksum failed.", new List<User>());
             }
 
@@ -107,27 +103,27 @@ namespace ClassLibrary1
             var found = new List<User>(ctx.Users).FindAll(a => a.Login.Equals(login) && a.Password.Equals(password));
             if (found.Count==0)
             {
-                logger.Log("Invalid username or password provided.", LogLevel.Error);
+                Trace.TraceError("Invalid username or password provided.", LogLevel.Error);
                 return new Returnable(false, "Invalid username or password provided.", new List<User>());
             }
 
 
             ctx.Users.Single(a => a.Password.Equals(password) && a.Login.Equals(login)).SessionKey = sessionKey;
             ctx.SaveChanges();
-            logger.Log(login+" successfully logged in, session key \""+sessionKey+"\" stored in database.");
+            Trace.WriteLine(login+" successfully logged in, session key \""+sessionKey+"\" stored in database.");
 
             return new Returnable(sessionKey);
         }
 
         public Returnable Logout(UInt32 timestamp, string sessionKey, byte[] hash)
         {
-            logger.Log("Logout method called.");
+            Trace.WriteLine("Logout method called.");
 
             bool ret = false;
             var hashOk = CheckHash(timestamp + sessionKey, hash);
             if (!hashOk)
             {
-                logger.Log("Request checksum failed.", LogLevel.Error);
+                Trace.TraceError("Request checksum failed.");
                 return new Returnable(false, "Request checksum failed.", new List<User>());
             }
 
@@ -135,7 +131,7 @@ namespace ClassLibrary1
 
             var single=ctx.Users.Single(a => a.SessionKey.Equals(sessionKey));
             single.SessionKey = null;
-            logger.Log(single.Login + " successfully logged out.");
+            Trace.WriteLine(single.Login + " successfully logged out.");
             ctx.SaveChanges();
 
             return new Returnable(ret);
@@ -146,11 +142,11 @@ namespace ClassLibrary1
             var hashok = CheckHash(timestamp.ToString()+data.ToString(), hash);
             if (!hashok)
             {
-                logger.Log("Request checksum failed.", LogLevel.Error);
+                Trace.TraceError("Request checksum failed.");
                 return new Returnable(false, "Request checksum failed.", new List<User>());
             }
             //            throw new NotImplementedException();
-            logger.Log("Register method called. Data: "+data.ToString());
+            Trace.WriteLine("Register method called. Data: "+data.ToString());
             var ctx = new Model1();
 
             try
@@ -160,7 +156,7 @@ namespace ClassLibrary1
             }
             catch (Exception e)
             {
-                logger.Log(e.Message, LogLevel.Error);
+                Trace.TraceError(e.Message);
                 return new Returnable(false, e.Message);
             }
 

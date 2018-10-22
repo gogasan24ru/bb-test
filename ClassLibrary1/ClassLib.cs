@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.ServiceModel;
@@ -55,12 +56,14 @@ namespace ClassLibrary1
         }
         public void Log(string msg, LogLevel lvl = 0)
         {
+            Trace.WriteLine(msg);
             if (lvl>=MinLogLevel)
                 lock (events)
                     events.Add(new Event(msg));
         }
         public void HandleEvents()
         {
+            
             lock (events)
                 foreach (var a in events.FindAll(a => !a.Displayed))
                     Console.WriteLine(a.ToString());
@@ -73,6 +76,7 @@ namespace ClassLibrary1
         public const string ClientSecret = "ImMegaClientSecret";
         public const string ServerSecret = "ImMegaServerSecret";
 
+        public static Logger GlobalLogger;
         public static List<object> Misc;//dummy walkaround 
     }
 
@@ -125,8 +129,7 @@ namespace ClassLibrary1
                     ((UserList == null) ? "null" : UserList.ToArray().ToString()) +
                     GlobalVar.ServerSecret
                 )
-            ));//TODO confirm correct behavior, add data
-               //            int a = 1;
+            ));
 
         }
 
@@ -206,7 +209,7 @@ namespace ClassLibrary1
         [Range(18, int.MaxValue,ErrorMessage = "Age should be at least 18")]
         public int Age { get; set; } = 18;//ushort?
 
-//        [MaxLength(8, ErrorMessage = "Login too long"), MinLength(1,ErrorMessage = "Login too short")]
+        [MaxLength(8, ErrorMessage = "Login too long"), MinLength(1,ErrorMessage = "Login too short")]
         [Index(IsClustered=false,IsUnique = true,Order=0)]//Should be
         [Required]
         [Display(Name = "Login")]
@@ -235,7 +238,7 @@ namespace ClassLibrary1
         public Passport Passport { get; set; }
 
         [ScaffoldColumn(false)]
-        public bool IsAuthenticated { get; set; } //TODO Wrong name. Should be renamed. 
+        public bool ChangedFlag { get; set; } 
         [ScaffoldColumn(false)]
         public string SessionKey { get; set; }
 
