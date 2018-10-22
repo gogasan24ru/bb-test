@@ -5,6 +5,7 @@
       <xs:element minOccurs="0" name="Boolean" type="xs:boolean" />
       <xs:element minOccurs="0" name="CheckSum" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Contains" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IntData" type="xs:int" />
       <xs:element minOccurs="0" name="StringData" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UserList" nillable="true" type="tns:ArrayOfUser" />
       <xs:element minOccurs="0" name="timestamp" type="xs:unsignedInt" />
@@ -20,7 +21,7 @@
   <xs:complexType name="User">
     <xs:sequence>
       <xs:element minOccurs="0" name="Age" type="xs:int" />
-      <xs:element minOccurs="0" name="IsAuthenticated" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ChangedFlag" type="xs:boolean" />
       <xs:element minOccurs="0" name="Login" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Passport" nillable="true" type="tns:Passport" />

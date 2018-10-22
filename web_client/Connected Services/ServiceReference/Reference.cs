@@ -27,6 +27,12 @@ namespace web_client.ServiceReference {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/ListUsers", ReplyAction="http://tempuri.org/IUsersManagementService/ListUsersResponse")]
         System.Threading.Tasks.Task<ClassLibrary1.Returnable> ListUsersAsync(uint timestamp, string sessionKey, byte[] hash, int page, string filterSet);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/GetUsersCount", ReplyAction="http://tempuri.org/IUsersManagementService/GetUsersCountResponse")]
+        ClassLibrary1.Returnable GetUsersCount(uint timestamp, string sessionKey, byte[] hash);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/GetUsersCount", ReplyAction="http://tempuri.org/IUsersManagementService/GetUsersCountResponse")]
+        System.Threading.Tasks.Task<ClassLibrary1.Returnable> GetUsersCountAsync(uint timestamp, string sessionKey, byte[] hash);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/Login", ReplyAction="http://tempuri.org/IUsersManagementService/LoginResponse")]
         ClassLibrary1.Returnable Login(uint timestamp, [System.ServiceModel.MessageParameterAttribute(Name="login")] string login1, string password, byte[] hash);
         
@@ -87,6 +93,14 @@ namespace web_client.ServiceReference {
         
         public System.Threading.Tasks.Task<ClassLibrary1.Returnable> ListUsersAsync(uint timestamp, string sessionKey, byte[] hash, int page, string filterSet) {
             return base.Channel.ListUsersAsync(timestamp, sessionKey, hash, page, filterSet);
+        }
+        
+        public ClassLibrary1.Returnable GetUsersCount(uint timestamp, string sessionKey, byte[] hash) {
+            return base.Channel.GetUsersCount(timestamp, sessionKey, hash);
+        }
+        
+        public System.Threading.Tasks.Task<ClassLibrary1.Returnable> GetUsersCountAsync(uint timestamp, string sessionKey, byte[] hash) {
+            return base.Channel.GetUsersCountAsync(timestamp, sessionKey, hash);
         }
         
         public ClassLibrary1.Returnable Login(uint timestamp, string login1, string password, byte[] hash) {

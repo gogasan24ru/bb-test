@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.Remoting.Messaging;
 using System.ServiceModel;
 using System.ServiceModel.Description;
@@ -111,14 +112,17 @@ namespace backend2
             //            events.Add(new Event("Application start."));
             logger= new Logger();
             GlobalVar.GlobalLogger = logger;
+            Trace.AutoFlush = true;
+            Trace.Listeners.Add(
+                new ConsoleTraceListener() { TraceOutputOptions = TraceOptions.Timestamp | TraceOptions.Callstack }
+            );
             logger.Log("Application stated.");
 
 
 //            System.Diagnostics.XmlWriterTraceListener tracer= new XmlWriterTraceListener();
 
 
-            //TODO: change parsing model to smth like below:
-            var arguments = new List<string>(args);
+            var arguments = args.ToList();
             try
             {
                 //                var ComplicatedArgument = "--complicated-argument";
@@ -129,11 +133,14 @@ namespace backend2
                 //                    int.TryParse(arguments[arguments.IndexOf(ComplicatedArgument) + 2],out b);
                 //                    ComplicatedMethod(a, b);
                 //                }
+                if (arguments.Contains("--custom-server"))
+                {
+                    throw new NotImplementedException();
+                }
                 if (arguments.Contains("--enable-tracing"))
                 {
-                }
-                else
-                {
+                   // Trace.Listeners.Add(new XmlWriterTraceListener("c:\\logs\\Traces.svclog", "nope"));
+                    throw new NotImplementedException();
                 }
                 if (arguments.Contains("--help"))
                 {

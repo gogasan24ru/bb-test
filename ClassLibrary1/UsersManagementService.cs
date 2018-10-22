@@ -57,6 +57,34 @@ namespace ClassLibrary1
             return _sessionName;
         }
 
+
+        public Returnable GetUsersCount(UInt32 timestamp, string sessionKey, byte[] hash)
+        {
+
+            Trace.WriteLine("GetUsersCount method called.");
+            var hashOk = CheckHash(timestamp + sessionKey, hash);
+            if (!hashOk)
+            {
+                Trace.TraceError("Request checksum failed.");
+                return new Returnable(false, "Request checksum failed.", new List<User>());
+            }
+
+            var isAuthed = IsAuthed(sessionKey);
+            if (!isAuthed)
+            {
+                Trace.TraceError("Not authenticated request received.");
+                return new Returnable(false, "Not authenticated request received.", new List<User>());
+            }
+
+            var ret = int.MinValue;
+            using (var ctx = new Model1())
+            {
+                ret = ctx.Users.Count();
+            }
+
+            return new Returnable(ret);
+        }
+
         public Returnable ListUsers(UInt32 timestamp, string sessionKey, byte[] hash, int page=0, string filterSet=null)
         {
 

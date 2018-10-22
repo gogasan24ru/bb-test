@@ -118,5 +118,22 @@ namespace web_client.Models
                 )
             );
         }
+
+        public int GetMaxPage(string sessionKey)
+        {
+            var cts = CurrentTimestamp();
+            var Answer = client.GetUsersCount(cts, sessionKey, ComputeHash(cts + sessionKey));
+            CheckAnswerChecksum(Answer);
+            int perpage = 10;
+            int maxpage = (int) (Answer.IntData / perpage) + ((Answer.IntData % perpage>0) ? 1 : 0);
+
+            if (Answer.Boolean)
+                return maxpage;
+            else
+            {
+                //                return null;
+                throw new Exception(Answer.StringData);
+            }
+        }
     }
 }

@@ -176,6 +176,44 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="WSHttpBinding_IUsersManagementService_GetUsersCount_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSHttpBinding_IUsersManagementService_GetUsersCount_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsp:Policy wsu:Id="WSHttpBinding_IUsersManagementService_Login_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -311,6 +349,12 @@
   <wsdl:message name="IUsersManagementService_ListUsers_OutputMessage">
     <wsdl:part name="parameters" element="tns:ListUsersResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsersManagementService_GetUsersCount_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsersCount" />
+  </wsdl:message>
+  <wsdl:message name="IUsersManagementService_GetUsersCount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsersCountResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsersManagementService_Login_InputMessage">
     <wsdl:part name="parameters" element="tns:Login" />
   </wsdl:message>
@@ -337,6 +381,10 @@
     <wsdl:operation name="ListUsers">
       <wsdl:input wsam:Action="http://tempuri.org/IUsersManagementService/ListUsers" message="tns:IUsersManagementService_ListUsers_InputMessage" />
       <wsdl:output wsam:Action="http://tempuri.org/IUsersManagementService/ListUsersResponse" message="tns:IUsersManagementService_ListUsers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUsersCount">
+      <wsdl:input wsam:Action="http://tempuri.org/IUsersManagementService/GetUsersCount" message="tns:IUsersManagementService_GetUsersCount_InputMessage" />
+      <wsdl:output wsam:Action="http://tempuri.org/IUsersManagementService/GetUsersCountResponse" message="tns:IUsersManagementService_GetUsersCount_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="Login">
       <wsdl:input wsam:Action="http://tempuri.org/IUsersManagementService/Login" message="tns:IUsersManagementService_Login_InputMessage" />
@@ -373,6 +421,17 @@
       </wsdl:input>
       <wsdl:output>
         <wsp:PolicyReference URI="#WSHttpBinding_IUsersManagementService_ListUsers_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUsersCount">
+      <soap12:operation soapAction="http://tempuri.org/IUsersManagementService/GetUsersCount" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#WSHttpBinding_IUsersManagementService_GetUsersCount_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsp:PolicyReference URI="#WSHttpBinding_IUsersManagementService_GetUsersCount_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>

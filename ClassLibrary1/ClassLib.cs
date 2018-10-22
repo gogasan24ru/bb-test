@@ -56,14 +56,14 @@ namespace ClassLibrary1
         }
         public void Log(string msg, LogLevel lvl = 0)
         {
-            Trace.WriteLine(msg);
+//            Trace.WriteLine(msg);
             if (lvl>=MinLogLevel)
                 lock (events)
                     events.Add(new Event(msg));
         }
         public void HandleEvents()
         {
-            
+            Trace.Flush();
             lock (events)
                 foreach (var a in events.FindAll(a => !a.Displayed))
                     Console.WriteLine(a.ToString());
@@ -84,11 +84,13 @@ namespace ClassLibrary1
     [Serializable()]
     public class Returnable
     {
-//        [IgnoreDataMember] private string key = "not set";
+        //        [IgnoreDataMember] private string key = "not set";
         //maybe add inheritance for duplex usage???
 
         [DataMember]
         public UInt32 timestamp { get; set; }
+        [DataMember]
+        public int IntData { get; set; }
         [DataMember]
         public string CheckSum { get; set; }
         [DataMember]
@@ -113,19 +115,22 @@ namespace ClassLibrary1
 
         public Returnable(string sd) : this(true, sd) { }
         public Returnable(List<User> ld) : this(true, null, ld) { }
+        public Returnable(int i) : this(true, null, null,i) { }
 
 
-        public Returnable(bool booleanData = true, string stringData = null, List<User> listData = null)
+        public Returnable(bool booleanData = true, string stringData = null, List<User> listData = null, int intdata=int.MinValue)
         {
             timestamp = (UInt32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
             Boolean = booleanData;
             StringData = stringData;
             UserList = listData;
+            IntData = intdata;
             CheckSum = Convert.ToBase64String(MD5.Create().ComputeHash(
                 Encoding.UTF8.GetBytes(
                     timestamp +
                     (Boolean ? "true" : "false") +
                     (StringData ?? "null") +
+                    IntData +
                     ((UserList == null) ? "null" : UserList.ToArray().ToString()) +
                     GlobalVar.ServerSecret
                 )
@@ -143,6 +148,7 @@ namespace ClassLibrary1
                     timestamp +
                     (Boolean ? "true" : "false") +
                     (StringData ?? "null") +
+                    IntData +
                     ((UserList == null) ? "null" : UserList.ToArray().ToString()) +
                     GlobalVar.ServerSecret
                 )

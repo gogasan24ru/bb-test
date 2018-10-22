@@ -9,7 +9,7 @@
 @using (Html.BeginForm("Register", "Home"))
 {
 @*     @Html.HiddenFor(user =>user.IsAuthenticated,new {@value = true}) *@
-    @Html.Hidden("IsAuthenticated", true)
+    @Html.Hidden("ChangedFlag", true)
     @Html.EditorForModel()
     
     <div class="editor-label">

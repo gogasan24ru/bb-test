@@ -17,6 +17,8 @@ namespace ClassLibrary1
 
         [OperationContract]
         Returnable ListUsers(UInt32 timestamp, string sessionKey, byte[] hash, int page, string filterSet);
+        [OperationContract]
+        Returnable GetUsersCount(UInt32 timestamp, string sessionKey, byte[] hash);
 
         [OperationContract]
         Returnable Login(UInt32 timestamp, string login, string password, byte[] hash);

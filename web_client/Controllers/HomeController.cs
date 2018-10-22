@@ -74,8 +74,8 @@ namespace web_client.Controllers
                 var model = new ICUser();
                 string sessionKey = (string)Session["SessionKey"] ?? "";
                 var list = model.ListUsers(sessionKey, page);
-                while((list.Count == 0)&& (page >= 0)) list = model.ListUsers(sessionKey, --page);
-                //TODO max page count should be received from server 
+                var maxPage = model.GetMaxPage(sessionKey)-1;
+                if (page > maxPage) page = maxPage;
                 ViewData["page"] = page;
                 return View(list);
             }
