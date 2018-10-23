@@ -144,6 +144,11 @@ namespace backend2
                 }
                 if (arguments.Contains("--help"))
                 {
+                    Console.WriteLine("--help - this help");
+                    Console.WriteLine("--create-with-demo - create database with demo data");
+                    Console.WriteLine("--drop-database - drop database is exist");
+                    Console.WriteLine("--create-database - create database with empty tables");
+                    Console.WriteLine("--run-service - run service and create database with empty tables if not exist");
                     throw new Exception("No help supplied yet :)");
                 }
                 if (arguments.Contains("--create-with-demo"))
