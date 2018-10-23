@@ -17,11 +17,16 @@ namespace web_client.Models
     }
     public class LoginModel
     {
+        [MaxLength(8, ErrorMessage = "Login too long"), MinLength(1, ErrorMessage = "Login too short")]
         [Required]
+        [Display(Name = "Login")]
+        [RegularExpression("^[A-Za-z0-9]{1,8}$", ErrorMessage = "Login length must be between 1 and 8 characters, only latin alphabet and digits are allowed")]
         public string Username { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
+        [Display(Name = "Пароль")]
+        [RegularExpression("^(?=.*[a-zA-Z])(?=.*[0-9]).{4,8}$", ErrorMessage = "Password length must be between 4 and 8 characters, only latin alphabet and at least one digit")]
         public string Password { get; set; }
     }
 
