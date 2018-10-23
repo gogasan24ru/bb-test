@@ -149,6 +149,19 @@ namespace web_client.Controllers
         public ActionResult LoginAction(LoginModel data)
         {
             var model = new ICUser();
+
+            if (!ModelState.IsValid)
+            {
+                string message = "";
+                foreach (var key in ViewData.ModelState.Keys)
+                foreach (ModelError error in ModelState[key].Errors)
+                {
+                    message += key + " (" + (ModelState[key].Value.AttemptedValue) + "): " + error.ErrorMessage + "<br/>";
+                }
+
+                ViewData["Message"] = ("Поля заполнены неправильно:<br/>" + message);
+                return View("Error");
+            }
             try
             {
                 Session["SessionKey"] = model.Login(data.Username, data.Password);
